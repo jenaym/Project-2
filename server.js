@@ -21,9 +21,22 @@ app.engine(
 );
 app.set("view engine", "handlebars");
 
+// Passport config
+const passport = require('passport');
+require('./config/passport')(passport);
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+// Routes for users
+// --> middleware should come before other routes
+const users = require("./routes/users");
+app.use('/users', users);
+
 // Routes
 require("./routes/apiRoutes")(app);
 require("./routes/htmlRoutes")(app);
+
 
 var syncOptions = { force: false };
 
