@@ -9,8 +9,12 @@
 </head>
 
 <body>
-  {{> errors}}
-  {{{body}}}
+  {{> nav}}
+  <div class="container">
+    {{> msg}}
+    {{> errors}}
+    {{{body}}}
+  </div>
 </body>
 
 </html>
