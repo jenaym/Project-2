@@ -13,7 +13,7 @@ module.exports = function(passport) {
     db.User.findOne({ where: { email: email }})
       .then(user => {
         if (!user) {
-          return done(null, false, { message: 'No user found'});
+          return done(null, false, { message: 'No user account found for ' + email});
         }
         
         // Verify the input password matches with the one from database
@@ -38,7 +38,7 @@ module.exports = function(passport) {
   passport.deserializeUser(function(id, done) {
     db.User.findById(id)
       .then(user => {
-        console.log(`User ${user.name}${user.id} logged in`);
+        console.log(`User ${user.name} [ID: ${user.id}] logged in`);
         done(null, user);
       })
       .catch(err => { console.log(err)});

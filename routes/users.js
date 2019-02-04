@@ -86,6 +86,8 @@ router.post('/register', (req, res) => {
               db.User.create(newUser)
                 .then(user => {
                   req.flash('success_msg', 'You are registered successfully');
+                  // auto-login
+                  req.login(user, err => console.log(err));
                   // TO-DO: auto-login and redirect to the user's personalized page
                   req.login(user, err => console.log(err));
                   res.redirect('/');
