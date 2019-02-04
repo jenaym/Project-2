@@ -21,6 +21,7 @@ if (config.use_env_variable) {
   );
 }
 
+// Load models into sequialize
 fs.readdirSync(__dirname)
   .filter(function(file) {
     return (
@@ -32,13 +33,18 @@ fs.readdirSync(__dirname)
     db[model.name] = model;
   });
 
+  // TODO: Model does not have associate prop or method. What is this then?
 Object.keys(db).forEach(function(modelName) {
   if (db[modelName].associate) {
     db[modelName].associate(db);
   }
 });
 
+// Associations
+db["Products"].hasMany(db["Ingredients"]);
+db["Recipes"].hasMany(db["Ingredients"]);
+
 db.sequelize = sequelize;
-db.Sequelize = Sequelize;
+db.Sequelize = Sequelize; // TODO: Why do we need it?
 
 module.exports = db;
