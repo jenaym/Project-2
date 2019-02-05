@@ -33,11 +33,6 @@ if (config.use_env_variable) {
   );
 }
 
-<<<<<<< HEAD
-
-
-=======
->>>>>>> master
 // Load models into sequialize
 fs.readdirSync(__dirname)
   .filter(function (file) {
@@ -50,13 +45,8 @@ fs.readdirSync(__dirname)
     db[model.name] = model;
   });
 
-<<<<<<< HEAD
 // TODO: Model does not have associate prop or method. What is this then?
 Object.keys(db).forEach(function (modelName) {
-=======
-  // TODO: Model does not have associate prop or method. What is this then?
-Object.keys(db).forEach(function(modelName) {
->>>>>>> master
   if (db[modelName].associate) {
     db[modelName].associate(db);
   }
