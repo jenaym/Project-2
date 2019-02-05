@@ -4,19 +4,20 @@ const ensureAuthenticated = require('./usersAuthHelper');
 module.exports = function(app) {
   // Load index page
   app.get("/", function(req, res) {
-    db.Example.findAll({}).then(function(dbExamples) {
+    db.Recipes.findAll({}).then(function(recipes) {
+      console.log(JSON.stringify(recipes));
       res.render("index", {
-        msg: "Welcome!",
-        examples: dbExamples
+        msg: "Welcome!!",
+        recipes: recipes
       });
     });
   });
 
   // Load example page and pass in an example by id
-  app.get("/example/:id", ensureAuthenticated, function(req, res) {
-    db.Example.findOne({ where: { id: req.params.id } }).then(function(dbExample) {
-      res.render("example", {
-        example: dbExample
+  app.get("/recipes/:id", ensureAuthenticated, function(req, res) {
+    db.Recipes.findOne({ where: { id: req.params.id } }).then(function(recipe) {
+      res.render("recipe", {
+        recipe: recipe
       });
     });
   });

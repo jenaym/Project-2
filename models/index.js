@@ -10,6 +10,18 @@ var db = {};
 
 require('dotenv').config();
 
+// * * * * * * * * *
+// CREATE "recipes_db" IF NOT EXISTS
+const mysql = require('mysql2');
+const connection = mysql.createConnection({
+  host: config.host,
+  // port: 3306,
+  user: config.username,
+  password: process.env.PASSWORD,
+});
+connection.execute(`CREATE DATABASE IF NOT EXISTS ${config.database}`);
+// * * * * * * * * *
+
 if (config.use_env_variable) {
   var sequelize = new Sequelize(process.env[config.use_env_variable]);
 } else {
@@ -21,20 +33,22 @@ if (config.use_env_variable) {
   );
 }
 
+
+
 // Load models into sequialize
 fs.readdirSync(__dirname)
-  .filter(function(file) {
+  .filter(function (file) {
     return (
       file.indexOf(".") !== 0 && file !== basename && file.slice(-3) === ".js"
     );
   })
-  .forEach(function(file) {
+  .forEach(function (file) {
     var model = sequelize.import(path.join(__dirname, file));
     db[model.name] = model;
   });
 
-  // TODO: Model does not have associate prop or method. What is this then?
-Object.keys(db).forEach(function(modelName) {
+// TODO: Model does not have associate prop or method. What is this then?
+Object.keys(db).forEach(function (modelName) {
   if (db[modelName].associate) {
     db[modelName].associate(db);
   }
