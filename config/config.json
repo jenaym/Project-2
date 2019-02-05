@@ -1,7 +1,11 @@
 {
   "development": {
     "username": "root",
+<<<<<<< HEAD
+    "password": null,
+=======
     "password": "",
+>>>>>>> master
     "database": "recipes_db",
     "host": "localhost",
     "dialect": "mysql"

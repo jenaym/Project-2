@@ -7,6 +7,9 @@ var db = require("./models");
 var app = express();
 var PORT = process.env.PORT || 3000;
 
+const session = require('express-session');
+const flash = require('connect-flash');
+
 // Middleware
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
@@ -21,12 +24,34 @@ app.engine(
 );
 app.set("view engine", "handlebars");
 
-// Passport config
+// Express-session middleware
+app.use(session({
+  secret: 'wolves',
+  resave: true,
+  saveUninitialized: true,
+  // cookie: { secure: true }
+}));
+
+// Passport config middleware
 const passport = require('passport');
 require('./config/passport')(passport);
-
 app.use(passport.initialize());
 app.use(passport.session());
+
+// Express-flash middleware
+app.use(flash());
+
+// Variables to be used across the app for flash messages
+// Web-page layout is set in partials/msg.handebars and
+// partials/errors to be displayed at top of a page
+app.use(function(req, res, next) {
+  res.locals.success_msg = req.flash('success_msg');
+  res.locals.error_msg = req.flash('error_msg');
+  res.locals.error = req.flash('error');
+  res.locals.user = req.user || null;
+  next();
+});
+
 
 // Routes for users
 // --> middleware should come before other routes

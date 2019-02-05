@@ -9,34 +9,44 @@ const bcrypt = require('bcryptjs');
 const passport = require('passport');
 const db = require('../models');
 
-// User Login Route
+// User Login Page Route
 router.get('/login', (req, res) => {
   res.render('users/login');
 });
 
-// User Register Route
-router.get('/register', (req, res) => {
-  res.render('users/register');
+// User Logout Route
+router.get('/logout', (req, res) => {
+  req.logout();
+  req.flash('success_msg', 'You are logged out now');
+  res.redirect('/');
 });
 
+// User Login Form Post Route
 router.post('/login', (req, res, next) => {
   passport.authenticate('local', {
-    successRedirect: '/',
+    successRedirect: '/',  
     failureRedirect: '/users/login',
     failureFlash: true
   })(req, res, next);
 });
 
-// User Register Form Post
+// User Register Page Route
+router.get('/register', (req, res) => {
+  res.render('users/register');
+});
+
+// User Register Form Post Route
 router.post('/register', (req, res) => {
   let errors = [];
 
+  // Verify "Password" === "Confirm Password"
   if (req.body.password !== req.body.password2) {
     errors.push({
       text: 'Passwords do not match'
     });
   }
 
+  // Ensure password is at least 6 characters long
   if (req.body.password.length < 6) {
     errors.push({
       text: 'Passwords must be at least 6 characters long'
@@ -60,7 +70,7 @@ router.post('/register', (req, res) => {
       })
       .then(user => {
         if (user) {
-          res.send('A user with the same email address already exists');
+          req.flash('error_msg', 'A user with the same email address already exists');
         } else {
           const newUser = {
             name: req.body.name,
@@ -71,11 +81,16 @@ router.post('/register', (req, res) => {
           bcrypt.genSalt(10, (err, salt) => {
             bcrypt.hash(newUser.password, salt, (err, hash) => {
               if (err) throw err;
+
               newUser.password = hash;
               db.User.create(newUser)
                 .then(user => {
-                  //res.send('You are now registered successfully');
-                  res.redirect('/users/login');
+                  req.flash('success_msg', 'You are registered successfully');
+                  // auto-login
+                  req.login(user, err => console.log(err));
+                  // TO-DO: auto-login and redirect to the user's personalized page
+                  req.login(user, err => console.log(err));
+                  res.redirect('/');
                 })
                 .catch(error => {
                   console.log(error);
