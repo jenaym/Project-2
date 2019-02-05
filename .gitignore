@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Logs
 logs
 *.log
@@ -60,3 +61,9 @@ typings/
 
 # next.js build output
 .next
+=======
+node_modules
+
+.env
+
+>>>>>>> master
