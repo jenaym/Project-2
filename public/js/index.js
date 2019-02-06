@@ -99,3 +99,11 @@ var handleDeleteBtnClick = function() {
 // Add event listeners to the submit and delete buttons
 submitBtn.on("click", handleFormSubmit);
 recipeList.on("click", ".delete", handleDeleteBtnClick);
+
+
+
+
+
+
+
+

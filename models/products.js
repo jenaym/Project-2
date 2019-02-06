@@ -3,7 +3,7 @@
 //
 
 module.exports = function(sequelize, DataTypes) {
-    var Products = sequelize.define("Products", {
+    var Ingredients = sequelize.define("Ingredients", {
       
      //   product_id INTEGER PRIMARY KEY AUTO_INCREMENT,
         name: DataTypes.STRING,
@@ -13,6 +13,6 @@ module.exports = function(sequelize, DataTypes) {
         vegetarian: DataTypes.BOOLEAN
     });
     
-    return Products;
+    return Ingredients;
   };
   

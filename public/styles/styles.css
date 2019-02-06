@@ -1,3 +1,49 @@
+
+body{
+  background: url("../images/baking-bread-cooking-1070880.jpg") no-repeat center center fixed;   -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  background-position: fixed;
+}
+
+#websiteDescription{
+
+  text-align: center;
+  vertical-align: middle;
+  font-family: "Times New Roman", Times, serif;
+  color: white;
+  font-size: 30px;
+  font-size: 3.5vw;
+  align: center;
+  margin: auto;
+  padding: 0;    
+  margin-top: 15%;
+}
+
+
+#breaker{
+  align: center;
+  margin: 20px 15% 20px 15%;
+  padding: 0;    
+  border-bottom-style: solid;
+  border-bottom-color: grey;
+  border-width: 1px 0px auto;
+}
+
+#favoriteRecipes{
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 0px;
+}
+
+.favs{
+  width: 50%;
+  padding-top: 50%;
+  color: white;
+}
+
 .list-group-item {
   line-height: 2.5;
 }

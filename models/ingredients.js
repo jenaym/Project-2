@@ -1,12 +1,18 @@
 //
-// Ingredients Schema Model
+// Products Schema Model
+//
 
 module.exports = function(sequelize, DataTypes) {
-    var Ingredients = sequelize.define("Ingredients", {
+    var Products = sequelize.define("Products", {
+      
+     //   product_id INTEGER PRIMARY KEY AUTO_INCREMENT,
         name: DataTypes.STRING,
-        amount: DataTypes.INTEGER
+        image: DataTypes.STRING,
+        calories: DataTypes.INTEGER,
+        gluten_free: DataTypes.BOOLEAN,
+        vegetarian: DataTypes.BOOLEAN
     });
     
-    return Ingredients;
+    return Products;
   };
   
