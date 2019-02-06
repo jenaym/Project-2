@@ -1,0 +1,101 @@
+<div class="container">
+    <div class="row">
+        <div class="col-10 offset-1">
+            <div class="card mt-4">
+                <div class="card-body">
+                    <div class="jumbotron jumbotron-fluid header card-title">
+                        <h1 class="display-4">Advanced Search</h1>
+                    </div>
+                    <p>
+
+                        <form id="inputField" class="input">
+                            <!-- RECIPE (inputid = foodName) -->
+                            <div class="form-group">
+                                <label for="mealType">Select Meal Type:</label>
+                                <select class="form-control" id="mealType">
+                                    <option value="1">Breakfast</option>
+                                    <option value="2">Lunch</option>
+                                    <option value="3">Dinner</option>
+                                    <option value="4">Dessert</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="proteinType">Enter Preferred Protein Type</label>
+                                <input type="proteinType" class="form-control" id="proteinType" placeholder="Chicken">
+                            </div>
+                            <div class="form-group">
+                                <label for="veggieType">Select Preferred Vegetables:</label>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="veggieRadios" id="carrots" value="carrots">
+                                    <label class="form-check-label" for="carrots">
+                                        carrots
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="veggieRadios" id="greenBeans"
+                                        value="greenBeans">
+                                    <label class="form-check-label" for="greenBeans">
+                                        Green Beans
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="veggieRadios" id="broccoli"
+                                        value="broccoli">
+                                    <label class="form-check-label" for="broccoli">
+                                        Broccoli
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="veggieRadios" id="greenBeans"
+                                        value="greenBeans">
+                                    <label class="form-check-label" for="greenBeans">
+                                        Green Beans
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="dietaryRestrictions">Select Dietary Restrictions:</label>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="dietaryRadios" id="glutenFree"
+                                        value="glutenFree">
+                                    <label class="form-check-label" for="glutenFree">
+                                        Gluten Free
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="dietaryRadios" id="vegetarian"
+                                        value="vegetarian">
+                                    <label class="form-check-label" for="vegetarian">
+                                        Vegetarian
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="dietaryRadios" id="vegan" value="vegan">
+                                    <label class="form-check-label" for="vegan">
+                                        Vegan
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="dietaryRadios" id="dairyFree"
+                                        value="dairyFree">
+                                    <label class="form-check-label" for="dairyFree">
+                                        Dairy Free
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="calories">Preferred Calorie Range:</label>
+                                <select class="form-control" id="calories">
+                                    <option value="1">Less than 300</option>
+                                    <option value="2">300-450</option>
+                                    <option value="3">451-600</option>
+                                    <option value="4">Greater than 600</option>
+                                </select>
+                            </div>
+                        </form>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
