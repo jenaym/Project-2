@@ -1,11 +1,11 @@
 //
-// Products Schema Model
-//
+// Ingredients Schema Model
 
 module.exports = function(sequelize, DataTypes) {
-    var Products = sequelize.define("Ingredients", {
+    var Ingredients = sequelize.define("Ingredients", {
+        // name: DataTypes.STRING,
         amount: DataTypes.INTEGER
     });
-
-    return Products;
+    
+    return Ingredients;
 };

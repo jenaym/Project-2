@@ -1,12 +1,13 @@
 var db = require("../models");
+const ensureAuthenticated = require('./usersAuthHelper');
 
 module.exports = function(app) {
   // Get all Recipes
   app.get("/api/recipes", function(req, res) {
     db.Recipes.findAll({
       where: req.body
-    }).then(function(dbRecipes) {
-      res.json(dbRecipes);
+    }).then(function(recipes) {
+      res.json(recipes);
     });
   });
 
@@ -17,10 +18,10 @@ module.exports = function(app) {
         res.status(404).send('Not Found')
       }
      // Sequelize provides getIngredients() function, when we build associations 
-      dbRecipe.getIngredients().then(function(dbIngredients) {
+      dbRecipe.getIngredients().then(function(ingredients) {
         var response = {
           recipe: dbRecipe,
-          ingredients: dbIngredients
+          ingredients: ingredients
         };
   
         res.json(response);
@@ -30,8 +31,8 @@ module.exports = function(app) {
 
   // Create or Post a new recipe
   app.post("/api/recipes", function(req, res) {
-    db.Recipes.create(req.body).then(function(dbRecipe) {
-      res.json(dbRecipe.id);
+    db.Recipes.create(req.body).then(function(recipe) {
+      res.json(recipe.id);
     });
   });
 
@@ -39,8 +40,8 @@ module.exports = function(app) {
   app.get("/api/products", function(req, res) {
     db.Products.findAll({
       where: req.body
-    }).then(function(dbProducts) {
-      res.json(dbProducts);
+    }).then(function(products) {
+      res.json(products);
     });
   });
 
@@ -50,16 +51,16 @@ module.exports = function(app) {
       ingredient["RecipeId"] = parseInt(req.params.id);
     });
 
-    db.Ingredients.bulkCreate(req.body).then(function(dbIngredients) {
-      console.log(dbIngredients);
+    db.Ingredients.bulkCreate(req.body).then(function(ingredients) {
+      console.log(ingredients);
     });
   });
 
 
-  // Delete recipe by id
-  app.delete("/api/recipes/:id", function(req, res) {
-    db.Recipes.destroy({ where: { id: req.params.id } }).then(function(dbRecipe) {
-      res.json(dbRecipe);
+  // Delete a recipe by id
+  app.delete("/api/recipes/:id", ensureAuthenticated, function(req, res) {
+    db.Recipes.destroy({ where: { id: req.params.id } }).then(function(recipe) {
+      res.json(recipe);
     });
   });
 };
