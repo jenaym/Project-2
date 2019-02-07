@@ -17,6 +17,9 @@
       {{!-- Change Navbar menu whether a user is login or not --}}
       {{#if user}}
       {{!-- user IS logged in --}}
+
+
+
       <li class="nav-item dropdown">
         <div class="btn-group">
           <button class="btn dropdown-toggle" type="button" id="navbarDropdownMenuLink" data-toggle="dropdown"
@@ -24,19 +27,25 @@
             Menu
           </button>
           <div class="dropdown-menu dropdown-menu-sm-right" aria-labelledby="navbarDropdownMenuLink">
-            <a class="dropdown-item" href="#">Action</a>
+            <a class="dropdown-item" href="/post">Create Recipe</a>
             <a class="dropdown-item" href="#">Another action</a>
             <a class="dropdown-item" href="#">Something else here</a>
           </div>
         </div>
       </li>
+
+
       <li class="nav-item">
         <a class="nav-link" href="/users/logout">
           Logout <i class="fa fa-sign-out" aria-hidden="true"></i>
         </a>
       </li>
+
+
       {{else}}
       {{!-- user IS NOT logged in --}}
+
+
       <li class="nav-item">
         <a class="nav-link" href="/users/login">
           Login <i class="fa fa-sign-in" aria-hidden="true"></i>
