@@ -4,8 +4,6 @@
 
 module.exports = function(sequelize, DataTypes) {
     var Products = sequelize.define("Products", {
-      
-     //   product_id INTEGER PRIMARY KEY AUTO_INCREMENT,
         product_name: DataTypes.STRING,
         product_image: DataTypes.STRING,
         product_calories: DataTypes.INTEGER,
@@ -14,5 +12,4 @@ module.exports = function(sequelize, DataTypes) {
     });
     
     return Products;
-  };
-  
+};
