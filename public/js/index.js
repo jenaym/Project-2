@@ -72,14 +72,15 @@ var refreshRecipes = function() {
 var handleFormSubmit = function(event) {
   event.preventDefault();
 
+
   var recipe = {
     name: recipeName.val().trim(),
     description: recipeDescription.val().trim(),
     image: pic.val().trim(),
-    gluten_free: glutenFree.val(),
-    dairy_free: dairyFree.val(),
-    vegetarian: vegetarian.val(),
-    vegan: vegan.val(),
+    gluten_free: glutenFree.is(':checked', function() { glutenFree.prop('checked', true) }),
+    dairy_free: dairyFree.is(':checked', function() { glutenFree.prop('checked', true) }),
+    vegetarian: vegetarian.is(':checked', function() { glutenFree.prop('checked', true) }),
+    vegan: vegan.is(':checked', function() { glutenFree.prop('checked', true) }),
     prep_time: prepTime.val().trim(),
     cook_time: cookTime.val().trim(),
     instructions: instructions.val().trim(),
