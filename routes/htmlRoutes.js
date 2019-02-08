@@ -22,6 +22,16 @@ module.exports = function(app) {
     });
   });
 
+  // Load Recipe Post page
+  app.get("/post", function(req, res) {
+      res.render("post");
+  });
+
+  // Load Advanced Search Page
+  app.get("/search", function(req, res) {
+    res.render("search");
+});
+
   // Render 404 page for any unmatched routes
   app.get("*", function(req, res) {
     res.render("404");

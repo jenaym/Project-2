@@ -45,7 +45,7 @@ fs.readdirSync(__dirname)
     db[model.name] = model;
   });
 
-// TODO: Model does not have associate prop or method. What is this then?
+// TODO: Model does not have associate prop or method.
 Object.keys(db).forEach(function (modelName) {
   if (db[modelName].associate) {
     db[modelName].associate(db);
@@ -53,10 +53,12 @@ Object.keys(db).forEach(function (modelName) {
 });
 
 // Associations
+// Now, when we have all models ready we can
+// build associations
 db["Products"].hasMany(db["Ingredients"]);
 db["Recipes"].hasMany(db["Ingredients"]);
 
 db.sequelize = sequelize;
-db.Sequelize = Sequelize; // TODO: Why do we need it?
+db.Sequelize = Sequelize;
 
 module.exports = db;
