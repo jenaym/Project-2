@@ -3,6 +3,17 @@
 //
 
 module.exports = function(sequelize, DataTypes) {
+<<<<<<< HEAD
+	var Recipes = sequelize.define("Recipes", {
+      
+		//   recipe_id INTEGER PRIMARY KEY AUTO_INCREMENT,
+		name: DataTypes.STRING,
+		description: DataTypes.TEXT,
+		image: DataTypes.STRING,
+		prep_time: DataTypes.INTEGER,
+		rating: DataTypes.INTEGER
+	});
+=======
     var Recipes = sequelize.define("Recipes", {
       
         name: DataTypes.STRING,
@@ -17,6 +28,7 @@ module.exports = function(sequelize, DataTypes) {
         instructions: DataTypes.TEXT,
         rating: DataTypes.INTEGER
     });
+>>>>>>> master
     
-    return Recipes;
+	return Recipes;
 };
