@@ -8,11 +8,11 @@
   <div id="favoriteRecipes"=>
     {{!-- insert handlebars for each loop here --}}
     {{!-- instead of favRecipes.js --}}
-    {{#each favoriteRecipes}}
+    {{#each recipes}}
 
-    <div class="favs" style="background-image: url(" +{{this.picture}}+")">
+    <div class="favs" id={{this.id}}>
 
-      {{this.name}}
+      {{this.recipe_name}}
 
     </div>
 
@@ -24,6 +24,7 @@
 </script>
 
 <script src="/js/index.js"></script>
+<script src="/js/recipePage.js"></script>
 
 {{!--
 <script type="text/javascript" src="/js/favRecipes.js" charset="utf-8"></script> --}}

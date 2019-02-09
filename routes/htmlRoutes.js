@@ -1,6 +1,8 @@
 var db = require("../models");
 const ensureAuthenticated = require('./usersAuthHelper');
 
+
+
 module.exports = function(app) {
   // Load index page
   app.get("/", function(req, res) {
@@ -14,7 +16,8 @@ module.exports = function(app) {
   });
 
   // Load example page and pass in an example by id
-  app.get("/recipes/:id", ensureAuthenticated, function(req, res) {
+  // call api routes from here
+  app.get("/recipes/:id", function(req, res) {
     db.Recipes.findOne({ where: { id: req.params.id } }).then(function(recipe) {
       res.render("recipe", {
         recipe: recipe

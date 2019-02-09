@@ -4,6 +4,7 @@ const recipeDescription = $("#recipe-description");
 const submitBtn = $("#submit");
 const recipeList = $("#recipe-list");
 
+
 // The API object contains methods for each kind of request we'll make
 var API = {
   saveRecipe: function(recipe) {
@@ -29,6 +30,7 @@ var API = {
     });
   }
 };
+
 
 // refreshRecipes gets new recipes from the db and repopulates the list
 var refreshRecipes = function() {
@@ -95,6 +97,8 @@ var handleDeleteBtnClick = function() {
     refreshRecipes();
   });
 };
+
+
 
 // Add event listeners to the submit and delete buttons
 submitBtn.on("click", handleFormSubmit);
