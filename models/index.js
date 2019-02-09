@@ -47,8 +47,8 @@ fs.readdirSync(__dirname)
 
 // Now, when we have all models ready we can
 // build associations
-db["Products"].hasMany(db["Ingredients"]);
-db["Recipes"].hasMany(db["Ingredients"]);
+db["Products"].belongsToMany(db["Recipes"], { through: db["Ingredients"] });
+db["Recipes"].belongsToMany(db["Products"], { through: db["Ingredients"] });
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize; // TODO: Why do we need it?
