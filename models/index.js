@@ -45,12 +45,18 @@ fs.readdirSync(__dirname)
     db[model.name] = model;
   });
 
-// Now, when we have all models ready we can
-// build associations
+//prevents us from having to load up each model individually with separate lines of code
+Object.keys(db).forEach(function (modelName) {
+  if (db[modelName].associate) {
+    db[modelName].associate(db);
+  }
+});
+
+// Associations
 db["Products"].hasMany(db["Ingredients"]);
 db["Recipes"].hasMany(db["Ingredients"]);
 
-db.sequelize = sequelize;
-db.Sequelize = Sequelize; // TODO: Why do we need it?
+db.sequelize = sequelize; //connection
+db.Sequelize = Sequelize; //constructor
 
 module.exports = db;
