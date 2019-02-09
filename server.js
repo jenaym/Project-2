@@ -7,8 +7,8 @@ var db = require("./models");
 var app = express();
 var PORT = process.env.PORT || 3000;
 
-const session = require('express-session');
-const flash = require('connect-flash');
+const session = require("express-session");
+const flash = require("connect-flash");
 
 // Middleware
 app.use(express.urlencoded({ extended: false }));
@@ -17,24 +17,24 @@ app.use(express.static("public"));
 
 // Handlebars
 app.engine(
-  "handlebars",
-  exphbs({
-    defaultLayout: "main"
-  })
+	"handlebars",
+	exphbs({
+		defaultLayout: "main"
+	})
 );
 app.set("view engine", "handlebars");
 
 // Express-session middleware
 app.use(session({
-  secret: 'wolves',
-  resave: true,
-  saveUninitialized: true,
-  // cookie: { secure: true }
+	secret: "wolves",
+	resave: true,
+	saveUninitialized: true,
+	// cookie: { secure: true }
 }));
 
 // Passport config middleware
-const passport = require('passport');
-require('./config/passport')(passport);
+const passport = require("passport");
+require("./config/passport")(passport);
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -45,18 +45,18 @@ app.use(flash());
 // Web-page layout is set in partials/msg.handebars and
 // partials/errors to be displayed at top of a page
 app.use(function(req, res, next) {
-  res.locals.success_msg = req.flash('success_msg');
-  res.locals.error_msg = req.flash('error_msg');
-  res.locals.error = req.flash('error');
-  res.locals.user = req.user || null;
-  next();
+	res.locals.success_msg = req.flash("success_msg");
+	res.locals.error_msg = req.flash("error_msg");
+	res.locals.error = req.flash("error");
+	res.locals.user = req.user || null;
+	next();
 });
 
 
 // Routes for users
 // --> middleware should come before other routes
 const users = require("./routes/users");
-app.use('/users', users);
+app.use("/users", users);
 
 // Routes
 require("./routes/apiRoutes")(app);
@@ -68,18 +68,18 @@ var syncOptions = { force: false };
 // If running a test, set syncOptions.force to true
 // clearing the `testdb`
 if (process.env.NODE_ENV === "test") {
-  syncOptions.force = true;
+	syncOptions.force = true;
 }
 
 // Starting the server, syncing our models ------------------------------------/
 db.sequelize.sync(syncOptions).then(function() {
-  app.listen(PORT, function() {
-    console.log(
-      "==> 🌎  Listening on port %s. Visit http://localhost:%s/ in your browser.",
-      PORT,
-      PORT
-    );
-  });
+	app.listen(PORT, function() {
+		console.log(
+			"==> 🌎  Listening on port %s. Visit http://localhost:%s/ in your browser.",
+			PORT,
+			PORT
+		);
+	});
 });
 
 module.exports = app;
