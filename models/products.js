@@ -11,8 +11,6 @@ module.exports = function(sequelize, DataTypes) {
         gluten_free: DataTypes.BOOLEAN,
         vegetarian: DataTypes.BOOLEAN
     });
-  
-// =======
+    
     return Products;
 };
-
