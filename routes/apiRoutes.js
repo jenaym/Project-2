@@ -36,12 +36,12 @@ module.exports = function(app) {
     });
   });
 
-  // Get all Products 
-  app.get("/api/products", function(req, res) {
-    db.Products.findAll({
-      where: req.body
-    }).then(function(products) {
-      res.json(products);
+
+  
+  // Create a new recipes
+  app.post("/api/recipes", function (req, res) {
+    db.Recipes.create(req.body).then(function (recipe) {
+      res.json(recipe);
     });
   });
 
