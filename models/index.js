@@ -52,11 +52,10 @@ Object.keys(db).forEach(function (modelName) {
   }
 });
 
-// Associations
 // Now, when we have all models ready we can
 // build associations
-db["Products"].hasMany(db["Ingredients"]);
-db["Recipes"].hasMany(db["Ingredients"]);
+db["Products"].belongsToMany(db["Recipes"], { through: db["Ingredients"] });
+db["Recipes"].belongsToMany(db["Products"], { through: db["Ingredients"] });
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
