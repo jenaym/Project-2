@@ -1,3 +1,28 @@
+// var db = require("../models");
+// const ensureAuthenticated = require('./usersAuthHelper');
+
+// module.exports = function(app) {
+//   // Get all recipes
+//   app.get("/api/recipes", function(req, res) {
+//     db.Recipes.findAll({}).then(function(recipes) {
+//       res.json(recipes);
+//     });
+//   });
+
+//   // Create a new recipes
+//   app.post("/api/recipes", function(req, res) {
+//     db.Recipes.create(req.body).then(function(recipe) {
+//       res.json(recipe);
+//     });
+//   });
+
+//   // Delete a recipe by id
+//   app.delete("/api/recipes/:id", ensureAuthenticated, function(req, res) {
+//     db.Recipes.destroy({ where: { id: req.params.id } }).then(function(recipe) {
+//       res.json(recipe);
+//     });
+//   });
+// };
 var db = require("../models");
 const ensureAuthenticated = require("./usersAuthHelper");
 
@@ -11,6 +36,7 @@ module.exports = function(app) {
 		});
 	});
 
+<<<<<<< HEAD
 	// Get Recipe details by recipe id 
 	app.get("/api/recipes/:id", function(req, res) {
 		db.Recipes.findByPk(req.params.id).then(function(dbRecipe) {
@@ -24,6 +50,21 @@ module.exports = function(app) {
 					recipe: dbRecipe,
 					products: products
 				};
+=======
+  // Get Recipe details by recipe id 
+  app.get("/api/recipes/:id", function(req, res) {
+    db.Recipes.findByPk(req.params.id).then(function(dbRecipe) {
+      if (dbRecipe === null) {
+        res.status(404).send('Not Found')
+      }
+      
+      // Sequelize provides getProducts() function, when we build associations 
+      dbRecipe.getProducts().then(function(products) {
+        var response = {
+          recipe: dbRecipe,
+          products: products
+        };
+>>>>>>> master
   
 				res.json(response);
 			});
@@ -58,6 +99,7 @@ module.exports = function(app) {
 	});
 
 
+<<<<<<< HEAD
 	// Delete a recipe by id
 	app.delete("/api/recipes/:id", ensureAuthenticated, function(req, res) {
 		db.Recipes.destroy({ where: { id: req.params.id } }).then(function(recipe) {
@@ -65,3 +107,12 @@ module.exports = function(app) {
 		});
 	});
 };
+=======
+  // Delete a recipe by id
+  app.delete("/api/recipes/:id", ensureAuthenticated, function(req, res) {
+    db.Recipes.destroy({ where: { id: req.params.id } }).then(function(recipe) {
+      res.json(recipe);
+    });
+  });
+};
+>>>>>>> master

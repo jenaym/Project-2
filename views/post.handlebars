@@ -1,147 +1,155 @@
-<div class="container">
+{{!-- <div class="container"> --}}
   <div class="row">
     <div class="col-10 offset-1">
       <div class="card mt-4">
         <div class="card-body">
-          <div class="jumbotron jumbotron-fluid header card-title"><h1 class="display-4">New Recipe</h1></div>
+          <div class="jumbotron jumbotron-fluid header card-title">
+            <h1 class="display-4">New Recipe</h1>
+          </div>
           <p>
-
-    <form id="inputField" class="input">
-       <!-- RECIPE (inputid = foodName) -->
-        <div class="form-row">
-            <div class="form-group col-md-9">
-                <label>Recipe Name</label>
-                <input id="foodName" class="form-control" placeholder="Recipe Name">
-            </div>
-        </div>
-        <div id="allIngredients">
-            <!-- have to creat function which, on click of button creates new open ingredient field -->
-            <!-- ingredient input field -->
-            <div class="form-row">
-
-                <!-- INGREDIENT (inputid = ingredient) -->
-                <div class="for-group col-md-">
+            <form id="inputField" class="input">
+              <!-- RECIPE (inputid = foodName) -->
+              <div class="form-row">
+                <div class="form-group col-md-9">
+                  <label>Recipe Name</label>
+                  <input id="recipe-name" class="form-control" placeholder="Recipe Name">
+                </div>
+              </div>
+              <div class="form-group col-md-12">
+                <label>Description</label>
+                <div class="input-group">
+                  <textarea id="description" class="form-control"></textarea>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group col-md-9">
+                  <label>Meal type</label>
+                  <div>
+                      <select id="mealType">
+                        <option selected>Choose...</option>
+                        <option value="breakfast">Breakfast</option>
+                        <option value="lunch">Lunch</option>
+                        <option value="dinner">Dinner</option>
+                        <option value="dessert">Dessertr</option>
+                      </select>
+                    </div>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group col-md-9">
+                  <label>Recipe Image</label>
+                  <input id="recipe-image" class="form-control" placeholder="Recipe Image Link">
+                </div>
+              </div>
+              <div class="allIngredients">
+                <div class="form-row">
+                  <!-- INGREDIENT (inputid = ingredient) -->
+                  <div class="form-group col-md-6">
                     <label>Ingredients</label>
                     <input id="ingredient" type="text" class="form-control" placeholder="Ingredient">
-                </div>
+                  </div>
 
-                <!-- QUANTITY (inputid = quantity) -->
-                <div class="for-group col-md-3">
+                  <!-- QUANTITY (inputid = quantity) -->
+                  <div class="form-group col-md-3">
                     <label>Quantity</label>
                     <input id="quantity" type="text" class="form-control" placeholder="Whole #">
-                </div>
+                  </div>
 
-                <!-- UNIT (inputid = unit) -->
-                <div class="for-group col-md-3">
+                  <!-- UNIT (inputid = unit) -->
+                  <div class="form-group col-md-3">
                     <label>Unit</label>
                     <div>
-                        <select id="unit">
-                            <option selected>Choose...</option>
-                            <option>teaspoon</option>
-                            <option>tablespoon</option>
-                            <option>cup</option>
-                            <option>ounce</option>
-                            <option>pint</option>
-                            <option>quart</option>
-                            <option>gallon</option>
-                            <option>pound</option>
-                        </select>
+                      <select id="unit">
+                        <option selected>Choose...</option>
+                        <option value="teaspoon">teaspoon</option>
+                        <option value="tablespoon">tablespoon</option>
+                        <option value="cup">cup</option>
+                        <option value="ounce">ounce</option>
+                        <option value="pint">pint</option>
+                        <option value="quart">quart</option>
+                        <option value="pound">pound</option>
+                      </select>
                     </div>
-
+                  </div>
                 </div>
+              </div>
+              <br>
 
-
-
-            </div>
-            <br>
-
-            <!-- ADD INGREDIENT BUTTON-->
-            <div class="col-md-5">
+              <!-- ADD INGREDIENT BUTTON-->
+              <div class="col-md-5">
                 <label>Add Ingredient</label>
+                <button class="addIngredient" type="submit" class="btn btn-light">+</button>
+              </div>
 
-                <button id="addIngredient" type="submit" class="btn btn-light">+</button>
-            </div>
+              <br>
 
-            <br>
-            <!-- TABLE TO APPEND NEW INGREDIENTS -->
-            <table class="table table-hover">
-
-                <tbody id="ingredientList">
-                    <!-- <tr>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                    </tr>
-                    <tr>
-                        <td>Jacob</td>
-                        <td>Thornton</td>
-                        <td>@fat</td>
-                    </tr>
-                    <tr>
-                        <td colspan="2">Larry the Bird</td>
-                        <td>@twitter</td>
-                    </tr> -->
-                </tbody>
-            </table>
-        </div>
-
-        <br>
-
-
-        <!-- ALLERGY INDICATORS -->
-        <div class="form-group">
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="gridCheck">
-                <label class="form-check-label" for="gridCheck">
+              <!-- ALLERGY INDICATORS -->
+              <div class="form-group">
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="glutenFree" value="false">
+                  <label class="form-check-label" for="glutenFree">
                     Gluten Free
-                </label>
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="gridCheck">
-                <label class="form-check-label" for="gridCheck">
+                  </label>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="dairyFree" value="false">
+                  <label class="form-check-label" for="dairyFree">
                     Dairy Free
-                </label>
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="gridCheck">
-                <label class="form-check-label" for="gridCheck">
+                  </label>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="vegetarian" value="false">
+                  <label class="form-check-label" for="vegetarian">
+                    Vegetarian
+                  </label>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="vegan" value="false">
+                  <label class="form-check-label" for="vegan">
                     Vegan
-                </label>
-            </div>
+                  </label>
+                </div>
+              </div>
+
+              <!-- PREP TIME (inputid = prepTime) -->
+              <div class="form-group col-md-4">
+                <label>Prep Time (mins)</label>
+                <input id="prepTime" type="text" class="form-control" placeholder="60">
+              </div>
+
+              <!-- COOK TIME (inputid = cookTime) -->
+              <div class="form-group col-md-4">
+                <label>Cook Time (mins)</label>
+                <input id="cookTime" type="text" class="form-control" placeholder="60">
+              </div>
+              <br>
+
+              <!-- DIRECTIONS (inputid = instructions) -->
+              <div class="form-group col-md-12">
+                <label>Instructions</label>
+                <div class="input-group">
+                  <textarea id="instructions" class="form-control"></textarea>
+                </div>
+              </div>
+              <br>
+
+              <!-- SUBMIT BUTTON -->
+              <button type="submit" class="btn btn-primary" id="postButton">Post Recipe</button>
+            </form>
+          </p>
         </div>
-
-        <!-- PREP TIME (inputid = prepTime) -->
-        <div class="for-group col-md-3">
-            <label>Prep Time (mins)</label>
-            <input id="prepTime" type="text" class="form-control" placeholder="60">
-        </div>
-
-        <!-- COOK TIME (inputid = cookTime) -->
-        <div class="for-group col-md-3">
-            <label>Cook Time (mins)</label>
-            <input id="cookTime" type="text" class="form-control" placeholder="60">
-        </div>
-        <br>
-
-        <!-- DIRECTIONS (inputid = instructions) -->
-        <div class="for-group col-md-12">
-            <label>Instructions</label>
-            <div class="input-group">
-                <textarea id="instructions" class="form-control"></textarea>
-            </div>
-        </div>
-        <br>
-
-        <!-- SUBMIT BUTTON -->
-        <button type="submit" class="btn btn-primary">Sign in</button>
-    </form>
-
-
       </div>
     </div>
   </div>
-</div>
+
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js">
+  </script>
+
+  <script src="/js/index.js"></script>
+  <script type="text/javascript" src="/js/post.js" charset="utf-8"></script>
