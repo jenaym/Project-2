@@ -1,7 +1,15 @@
 // Get references to page elements
 const recipeName = $("#recipe-name");
-const recipeDescription = $("#recipe-description");
-const submitBtn = $("#submit");
+const recipeDescription = $("#description");
+const glutenFree = $("#glutenFree")
+const dairyFree = $("#dairyFree")
+const vegan = $("#vegan")
+const vegetarian = $("#vegetarian")
+const prepTime = $("#prepTime")
+const cookTime = $("#cookTime")
+const instructions = $("#instructions")
+const pic = $("#recipe-image");
+const postBtn = $("#postButton");
 const recipeList = $("#recipe-list");
 
 // The API object contains methods for each kind of request we'll make
@@ -64,17 +72,26 @@ var refreshRecipes = function() {
 var handleFormSubmit = function(event) {
   event.preventDefault();
 
+
   var recipe = {
     name: recipeName.val().trim(),
-    description: recipeDescription.val().trim()
+    description: recipeDescription.val().trim(),
+    image: pic.val().trim(),
+    gluten_free: glutenFree.is(':checked', function() { glutenFree.prop('checked', true) }),
+    dairy_free: dairyFree.is(':checked', function() { glutenFree.prop('checked', true) }),
+    vegetarian: vegetarian.is(':checked', function() { glutenFree.prop('checked', true) }),
+    vegan: vegan.is(':checked', function() { glutenFree.prop('checked', true) }),
+    prep_time: prepTime.val().trim(),
+    cook_time: cookTime.val().trim(),
+    instructions: instructions.val().trim(),
   };
   
   console.log('RECIPE: ' + JSON.stringify(recipe));
 
-  if (!(recipe.name && recipe.description)) {
-    alert("You must enter a recipe name and description!");
-    return;
-  }
+  // if (!(recipe.name && recipe.description)) {
+  //   alert("You must enter a recipe name and description!");
+  //   return;
+  // }
 
   API.saveRecipe(recipe).then(function() {
     refreshRecipes();
@@ -97,5 +114,5 @@ var handleDeleteBtnClick = function() {
 };
 
 // Add event listeners to the submit and delete buttons
-submitBtn.on("click", handleFormSubmit);
+postBtn.on("click", handleFormSubmit);
 recipeList.on("click", ".delete", handleDeleteBtnClick);
