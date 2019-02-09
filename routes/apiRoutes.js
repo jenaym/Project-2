@@ -18,7 +18,7 @@ module.exports = function(app) {
         res.status(404).send('Not Found')
       }
       
-      // Sequelize provides getIngredients() function, when we build associations 
+      // Sequelize provides getProducts() function, when we build associations 
       dbRecipe.getProducts().then(function(products) {
         var response = {
           recipe: dbRecipe,
