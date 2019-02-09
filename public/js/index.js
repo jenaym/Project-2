@@ -72,12 +72,6 @@ var refreshRecipes = function() {
 var handleFormSubmit = function(event) {
 	event.preventDefault();
 
-<<<<<<< HEAD
-	var recipe = {
-		name: recipeName.val().trim(),
-		description: recipeDescription.val().trim()
-	};
-=======
 
   var recipe = {
     name: recipeName.val().trim(),
@@ -91,21 +85,13 @@ var handleFormSubmit = function(event) {
     cook_time: cookTime.val().trim(),
     instructions: instructions.val().trim(),
   };
->>>>>>> master
   
 	console.log("RECIPE: " + JSON.stringify(recipe));
 
-<<<<<<< HEAD
 	if (!(recipe.name && recipe.description)) {
 		alert("You must enter a recipe name and description!");
 		return;
 	}
-=======
-  // if (!(recipe.name && recipe.description)) {
-  //   alert("You must enter a recipe name and description!");
-  //   return;
-  // }
->>>>>>> master
 
 	API.saveRecipe(recipe).then(function() {
 		refreshRecipes();
