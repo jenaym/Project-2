@@ -16,6 +16,13 @@ router.get("/index", (req, res) => {
 	else res.redirect("/users/login");
 });
 
+// Gateway route for a user's page area
+// this route is NOT protected
+router.get("/index", (req, res) => {
+	if (req.user) res.redirect("/users/" + req.user.id);
+	else res.redirect("/users/login");
+});
+
 // User's personalized page route
 router.get("/:id", ensureAuthenticated, (req, res) => {
 	getUserData(req.user.id, (userData) => {
