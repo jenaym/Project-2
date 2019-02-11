@@ -8,6 +8,17 @@ db.sequelize.sync({
 	force: false
 });
 
+// == Mock Recipes, Ingredients, and Products ==
+
+const dataFile = "./recipe_raw_data-sm"; // --> 15 recipes and 100 ingredients
+// const dataFile = "./recipe_raw_data";    // --> 50 recipes and about 350 ingredients
+const inputData = require(dataFile);
+	
+//
+// == Mock user data ==
+// 5 users: user1@email.com, user2@email.com, ... and so on
+// password is the same "abcd1234" for all the users
+//
 function insertUsers() {
 	return new Promise((resolve, reject) => {
 		const inputUsers = require("./mock_users");
@@ -25,14 +36,6 @@ function insertUsers() {
 }
 
 async function insertData() {
-	// 15 recipes and 100 ingredients
-	// const inputData = require("./recipe_raw_data-sm");
-	
-	// 15 recipes and 100 ingredients
-	const inputData = require("./recipe_raw_data");
-	
-	// 5 users: user1@email.com, user2@email.com, ... and so on
-	// password is the same "abcd1234" for all the users
 	const userIDs = await insertUsers();
 
 	console.log(`Got user IDs: ${JSON.stringify(userIDs)}`);
