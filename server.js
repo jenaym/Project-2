@@ -55,8 +55,10 @@ app.use(function(req, res, next) {
 
 // Routes for users
 // --> middleware should come before other routes
-const users = require("./routes/users");
-app.use("/users", users);
+const userSession = require("./routes/users");
+const userRoutes = require("./routes/userRoutes");
+app.use("/users", userSession);
+app.use("/users", userRoutes);
 
 // Routes
 require("./routes/apiRoutes")(app);
