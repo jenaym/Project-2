@@ -36,19 +36,19 @@ module.exports = function(app) {
 		});
 	});
 
-	// Get Recipe details by recipe id 
-	app.get("/api/recipes/:id", function(req, res) {
-		db.Recipes.findByPk(req.params.id).then(function(dbRecipe) {
-			if (dbRecipe === null) {
-				res.status(404).send("Not Found");
-			}
+  // Get Recipe details by recipe id 
+  app.get("/api/recipes/:id", function(req, res) {
+    db.Recipes.findByPk(req.params.id).then(function(dbRecipe) {
+      if (dbRecipe === null) {
+        res.status(404).send('Not Found')
+      }
       
-			// Sequelize provides getProducts() function, when we build associations 
-			dbRecipe.getProducts().then(function(products) {
-				var response = {
-					recipe: dbRecipe,
-					products: products
-				};
+      // Sequelize provides getProducts() function, when we build associations 
+      dbRecipe.getProducts().then(function(products) {
+        var response = {
+          recipe: dbRecipe,
+          products: products
+        };
   
 				res.json(response);
 			});
