@@ -3,7 +3,7 @@
 //
 
 module.exports = function(sequelize, DataTypes) {
-	const userProfile = sequelize.define("UserFavorites", {
+	const userProfile = sequelize.define("UserProfile", {
 		// Sequelize will add the following fiels based on associations
 		// 1. RecipesId
 		// 2. UsersId
@@ -23,10 +23,10 @@ module.exports = function(sequelize, DataTypes) {
 	//
 	// Associations
 	//
-  userProfile.associate = function(db) {
-		this.belongsToMany(db.Recipes);
-		this.belongsToMany(db.User);
-	}
+	userProfile.associate = function(db) {
+		this.belongsTo(db.Recipes);
+		this.belongsTo(db.User);
+	};
 
 	return userProfile;
 };

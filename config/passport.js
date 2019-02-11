@@ -36,7 +36,7 @@ module.exports = function(passport) {
   
 	// De-serialize the user session
 	passport.deserializeUser(function(id, done) {
-		db.User.findById(id)
+		db.User.findByPk(id)
 			.then(user => {
 				console.log(`User ${user.name} [ID: ${user.id}] logged in`);
 				done(null, user);
