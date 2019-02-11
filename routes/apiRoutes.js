@@ -89,4 +89,25 @@ module.exports = function(app) {
 			res.json(recipe);
 		});
 	});
+
+
+	// ======================== Update recipe rating ===========================
+	app.put("/api/recipes/:id", function(req, res) {
+		db.Recipes.findByPk(req.params.id).then(function(dbRecipe) {
+			if (dbRecipe === null) {
+				res.status(404).send("Not Found");
+			}
+			db.Recipes.update(
+				{rating: dbRecipe.rating + 1},
+				{
+					where: {
+					  id: req.params.id	
+					}
+			  }).then(function(dbRecipeUpdated) {
+			  res.json(dbRecipeUpdated);
+			});
+		});
+	});
+
+
 };
