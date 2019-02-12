@@ -1,13 +1,13 @@
 // Get references to page elements
 const recipeName = $("#recipe-name");
 const recipeDescription = $("#description");
-const glutenFree = $("#glutenFree")
-const dairyFree = $("#dairyFree")
-const vegan = $("#vegan")
-const vegetarian = $("#vegetarian")
-const prepTime = $("#prepTime")
-const cookTime = $("#cookTime")
-const instructions = $("#instructions")
+const glutenFree = $("#glutenFree");
+const dairyFree = $("#dairyFree");
+const vegan = $("#vegan");
+const vegetarian = $("#vegetarian");
+const prepTime = $("#prepTime");
+const cookTime = $("#cookTime");
+const instructions = $("#instructions");
 const img = $("#recipe-image");
 const postBtn = $("#postButton");
 const recipeList = $("#recipe-list");
@@ -99,17 +99,17 @@ var handleFormSubmit = function(event) {
 	event.preventDefault();
 
 
-  var recipe = {
-    name: recipeName.val().trim(),
-    description: recipeDescription.val().trim(),
-    gluten_free: glutenFree.is(':checked', function() { glutenFree.prop('checked', true) }),
-    dairy_free: dairyFree.is(':checked', function() { glutenFree.prop('checked', true) }),
-    vegetarian: vegetarian.is(':checked', function() { glutenFree.prop('checked', true) }),
-    vegan: vegan.is(':checked', function() { glutenFree.prop('checked', true) }),
-    prep_time: prepTime.val().trim(),
-    cook_time: cookTime.val().trim(),
-    instructions: instructions.val().trim(),
-  };
+	var recipe = {
+		name: recipeName.val().trim(),
+		description: recipeDescription.val().trim(),
+		gluten_free: glutenFree.is(":checked", function() { glutenFree.prop("checked", true); }),
+		dairy_free: dairyFree.is(":checked", function() { glutenFree.prop("checked", true); }),
+		vegetarian: vegetarian.is(":checked", function() { glutenFree.prop("checked", true); }),
+		vegan: vegan.is(":checked", function() { glutenFree.prop("checked", true); }),
+		prep_time: prepTime.val().trim(),
+		cook_time: cookTime.val().trim(),
+		instructions: instructions.val().trim(),
+	};
   
 	console.log("RECIPE: " + JSON.stringify(recipe));
 
