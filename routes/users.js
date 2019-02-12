@@ -24,7 +24,11 @@ router.get("/logout", (req, res) => {
 // User Login Form Post Route
 router.post("/login", (req, res, next) => {
 	passport.authenticate("local", {
+<<<<<<< HEAD
 		successRedirect: "/users/" + req.user,
+=======
+		successRedirect: "/users/index",
+>>>>>>> 31ff5ec95ca8769a03a582511545ccb112508df6
 		failureRedirect: "/users/login",
 		failureFlash: true
 	})(req, res, next);
@@ -36,16 +40,16 @@ router.get("/register", (req, res) => {
 });
 
 // User Register Form Post Route
-router.post("/register", (req, res) => {
+router.post("/register", (req, res, next) => {
 	let errors = [];
 
 	if (validatePassword(req, errors)) {
 		// Check if the email address is already registered
 		db.User.findOne({
-			where: {
-				email: req.body.email
-			}
-		})
+				where: {
+					email: req.body.email
+				}
+			})
 			.then(user => {
 				if (user) {
 					req.flash("error_msg", "A user with the same email address already exists");
@@ -65,13 +69,13 @@ router.post("/register", (req, res) => {
 								.then(user => {
 									req.flash("success_msg", "You are registered successfully");
 									// auto-login
-									req.login(user, err => console.log(err));
-									// TO-DO: auto-login and redirect to the user's personalized page
-									req.login(user, err => console.log(err));
-									res.redirect("/");
+									req.login(user, err => {
+										return next(err);
+									});
+									res.redirect("/users/" + user.id);
 								})
 								.catch(error => {
-									console.log(error);
+									req.flash("error_msg", "Unable to register: " + error);
 									return;
 								});
 						});

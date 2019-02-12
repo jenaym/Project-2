@@ -1,5 +1,68 @@
 {{!-- The main page when a user logs in --}}
 
+<<<<<<< HEAD
 <div class="container">
   <h2>Hello </h2>
 </div>
+=======
+<h2>Hello {{user.name}}!</h2>
+<hr>
+{{#if recipes.favorites}}
+  <h3>Your Favorite Recipes</h3>
+  <div class="card-columns">
+   {{#each recipes.favorites}}
+      <div class="card mt-2">
+        <img src="{{this.image}}" alt="recipe image unavailable" class="card-img-top img-thumbnail rounded">
+        <div class="card-body">
+          <h5 class="card-title">{{this.name}}</h5>
+          <p class="card-text">
+            <a href="{{this.description}}">{{this.description}}</a>
+          </p>
+        </div>
+      </div>
+   {{/each}}
+  </div>
+{{else}}
+  {{!-- <h4>No Saved Favorite Recipes</h4> --}}
+{{/if}}
+
+<hr>
+{{#if recipes.recommend}}
+  <h3>Recommended Recipes</h3>
+  <div class="card-columns">
+   {{#each recipes.recommend}}
+      <div class="card mt-2">
+        <img src="{{this.image}}" alt="recipe image unavailable" class="card-img-top img-thumbnail rounded">
+        <div class="card-body">
+          <h5 class="card-title">{{this.name}}</h5>
+          <p class="card-text">
+            <a href="{{this.description}}">{{this.description}}</a>
+          </p>
+        </div>
+      </div>
+   {{/each}}
+  </div>
+{{else}}
+  {{!-- <h3>No recipe recommendations generated yet</h3> --}}
+{{/if}}
+
+<hr>
+{{#if recipes.posted}}
+  <h3>Recipes You Have Posted</h3>
+  <div class="card-columns">
+    {{#each recipes.posted}}
+      <div class="card mt-2">
+        <img class="card-img-top" src="{{this.image}}" alt="recipe image unavailable">
+        <div class="card-body">
+          <h5 class="card-title">{{this.name}}</h5>
+          <p class="card-text">
+            <a href="{{this.description}}">{{this.description}}</a>
+          </p>
+        </div>
+      </div>
+    {{/each}}
+  </div>
+{{else}}
+  <h4>You haven't posted any recipe</h4>
+{{/if}}
+>>>>>>> 31ff5ec95ca8769a03a582511545ccb112508df6
