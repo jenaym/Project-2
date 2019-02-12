@@ -109,7 +109,7 @@ fs.readdirSync(__dirname)
 		db[model.name] = model;
 	});
 
-// TODO: Model does not have associate prop or method.
+// UserProfile makes use of "associate" now
 Object.keys(db).forEach(function (modelName) {
 	if (db[modelName].associate) {
 		db[modelName].associate(db);

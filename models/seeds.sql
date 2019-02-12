@@ -1,6 +1,6 @@
 USE recipes_db;
 
-INSERT INTO products (product_name, product_calories, gluten_free, vegetarian, createdAt, updatedAt)
+INSERT INTO products (name, calories, gluten_free, vegetarian, createdAt, updatedAt)
 VALUES 
 ("cilantro", 10, true, true, now(), now()),
 ("pistachios", 10, true,true, now(), now()),
@@ -30,7 +30,7 @@ VALUES
 
 
 
-INSERT INTO recipes (recipe_name, description, prep_time, rating, createdAt, updatedAt)
+INSERT INTO recipes (name, description, prep_time, rating, createdAt, updatedAt)
 VALUES 
 ("Cilantro Pistachio Pesto Shrimp Pasta", 
 "Make the pesto by adding the following to the bowl of a food processor: cilantro, pistachios, jalapeño, garlic cloves, lime juice, olive oil, water and salt and pepper. Process until smooth, scraping down the sides and processing again, if necessary.
@@ -39,7 +39,7 @@ Cook the pasta until al dente, according to the directions on the package. Drain
 cilantro leaves and a sprinkle of crushed pistachios. Serve immediately. Makes about 4 servings.", 
 45, 5, now(), now());
 
-INSERT INTO recipes (recipe_name, description, prep_time, rating, createdAt, updatedAt)
+INSERT INTO recipes (name, description, prep_time, rating, createdAt, updatedAt)
 VALUES 
 ("Curry Roasted Cauliflower Sweet Potato Salad", 
 "Preheat oven to 350 degrees F. Place cauliflower florets and cubed sweet potatoes on a large baking sheet. Drizzle with olive oil, then sprinkle on curry powder, turmeric, garlic powder, red cayenne pepper and season with 
