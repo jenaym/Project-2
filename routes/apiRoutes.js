@@ -25,6 +25,8 @@
 // };
 var db = require("../models");
 const ensureAuthenticated = require("./usersAuthHelper");
+var multiparty = require('multiparty');
+var fs = require("fs");
 
 module.exports = function(app) {
 	// Get all Recipes
@@ -42,14 +44,14 @@ module.exports = function(app) {
 			if (dbRecipe === null) {
 				res.status(404).send("Not Found");
 			}
-      
+
 			// Sequelize provides getProducts() function, when we build associations 
 			dbRecipe.getProducts().then(function(products) {
 				var response = {
 					recipe: dbRecipe,
 					products: products
 				};
-  
+
 				res.json(response);
 			});
 		});
@@ -92,22 +94,42 @@ module.exports = function(app) {
 
 
 	// ======================== Update recipe rating ===========================
-	app.put("/api/recipes/:id", function(req, res) {
+	app.put("/api/recipes/:id/rating", function(req, res) {
 		db.Recipes.findByPk(req.params.id).then(function(dbRecipe) {
 			if (dbRecipe === null) {
 				res.status(404).send("Not Found");
 			}
-			db.Recipes.update(
-				{rating: dbRecipe.rating + 1},
+			dbRecipe.update(
 				{
-					where: {
-					  id: req.params.id	
-					}
-			  }).then(function(dbRecipeUpdated) {
-			  res.json(dbRecipeUpdated);
-			});
+					rating: dbRecipe.rating + 1
+				}).then(function(dbRecipeUpdated) {
+					res.json(dbRecipeUpdated.id);
+				});
 		});
 	});
 
+	//================================Upload Image=================================
+	app.put("/api/recipes/:id/image", function(req, res) {
 
+		var form = new multiparty.Form();
+		form.parse(req, function(err, fields, files) {
+			if (err) {
+				res.status(400).send("Bad User Input");
+			}
+
+			fs.readFile(files["image"][0].path, function(err, data) {
+				db.Recipes.findByPk(req.params.id).then(function(dbRecipe) {
+					if (dbRecipe === null) {
+						res.status(404).send("Not Found");
+					}
+					dbRecipe.update(
+						{
+							image: data
+						}).then(function(dbRecipeUpdated) {
+							res.json(dbRecipeUpdated.id);
+						});
+				});
+			});
+		});
+	});
 };

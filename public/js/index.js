@@ -8,7 +8,7 @@ const vegetarian = $("#vegetarian")
 const prepTime = $("#prepTime")
 const cookTime = $("#cookTime")
 const instructions = $("#instructions")
-const pic = $("#recipe-image");
+const img = $("#recipe-image");
 const postBtn = $("#postButton");
 const recipeList = $("#recipe-list");
 
@@ -23,6 +23,30 @@ var API = {
 			url: "api/recipes",
 			data: JSON.stringify(recipe)
 		});
+	},
+	setRecipeImage: function(id, file) {
+
+		// Only JPEG files less than 1MB
+		if (file.type != "image/jpeg") {
+			alert("JPEG image format is expected.");
+			return;
+		}
+
+		if (file.size > 1024 * 1024) {
+			alert("File size below 1MB is expected.");
+			return;
+		}
+
+		var data = new FormData();
+		data.append("image", file);
+		
+		var xhr = new XMLHttpRequest();
+		xhr.withCredentials = true;
+		
+		xhr.open("PUT", "api/recipes/" + id + "/image");
+		xhr.setRequestHeader("cache-control", "no-cache");
+		
+		xhr.send(data);
 	},
 	getRecipe: function() {
 		return $.ajax({
@@ -76,7 +100,6 @@ var handleFormSubmit = function(event) {
   var recipe = {
     name: recipeName.val().trim(),
     description: recipeDescription.val().trim(),
-    image: pic.val().trim(),
     gluten_free: glutenFree.is(':checked', function() { glutenFree.prop('checked', true) }),
     dairy_free: dairyFree.is(':checked', function() { glutenFree.prop('checked', true) }),
     vegetarian: vegetarian.is(':checked', function() { glutenFree.prop('checked', true) }),
@@ -93,8 +116,10 @@ var handleFormSubmit = function(event) {
 		return;
 	}
 
-	API.saveRecipe(recipe).then(function() {
-		refreshRecipes();
+	API.saveRecipe(recipe).then(function(resp) {
+		API.setRecipeImage(resp, img[0].files[0]).then(function() {
+			refreshRecipes();
+		});
 	});
 
 	recipeName.val("");
