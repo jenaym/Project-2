@@ -2,7 +2,8 @@
 // Generate mock recipe data
 //
 
-require("dotenv").config();
+require("dotenv").config(); // for API key
+const db = require("../../models");
 
 //
 // Search recipes on EDAMAM
@@ -17,7 +18,7 @@ class EdamamAPI {
 		this.key = Object.entries(key).map(_ => _.join("=")).join("&");
 		this.request = require("request");
 	}
-  
+
 	//
 	// Return the API ID and KEY
 	//
@@ -35,31 +36,36 @@ class EdamamAPI {
 	// * queryText = e.g. "chiken", "beef", etc.
 	//
 	findRecipe(queryText = process.argv.join(" ")) {
-		let query = [
-			"https://api.edamam.com/search?" +
-      `q=${queryText}`,
-			this.key,
-			"from=0",
-			"to=5",
-		].join("&");
+		return new Promise((resolve, reject) => {
+			let query = [
+				"https://api.edamam.com/search?" +
+				`q=${queryText}`,
+				this.key,
+				// "from=0",
+				// "to=15",
+			].join("&");
 
-		console.log(query);
-		console.log(`\n=======\nSearching recipe "${queryText}"`);
-		this.request(query, (error, response, body) => {
-			if (error) {
-				console.log("ERROR: ", error);
-				return;
-			}
-			if (!/^2\d\d.*/.test(response.statusCode)) {
-				console.log("ERROR: status", response.statusCode, error);
-				return;
-			}
-			const jsonObj = this.body2JSON(body);
-			if (!jsonObj) return;
+			console.log(query);
+			console.log(`\n=======\nSearching recipe "${queryText}"`);
+			this.request(query, (error, response, body) => {
+				if (error) {
+					console.log("ERROR: ", error);
+					reject(error);
+					return;
+				}
+				if (!/^2\d\d.*/.test(response.statusCode)) {
+					console.log("ERROR: status", response.statusCode, error);
+					reject("ERROR: status " + response.statusCode);
+				}
+				const jsonObj = this.body2JSON(body);
+				if (!jsonObj) reject('ERROR during JSON conversion');
 
-			console.log(`\n=======\nResults for the recipe "${queryText}"`);
-			this.printRecipeInfo(jsonObj);
+				console.log(`\n=======\nResults for the recipe "${queryText}"`);
+				// this.printRecipeInfo(jsonObj);
+				resolve(jsonObj);
+			});
 		});
+
 	}
 
 	//
@@ -72,7 +78,7 @@ class EdamamAPI {
 	body2JSON(body) {
 		const data = JSON.parse(body);
 		// console.log(data);
-  
+
 		if ("Error" in data) {
 			console.log("Error: " + data.Error);
 			return null;
@@ -95,7 +101,7 @@ class EdamamAPI {
 	//
 	printRecipeInfo(data) {
 		let recipes = [];
-    
+
 		for (let i = 0; i < data.hits.length; i++) {
 			const ptr = data.hits[i].recipe;
 			let recipe = {
@@ -108,19 +114,43 @@ class EdamamAPI {
 				vegan: (Math.random() > 0.5),
 				prep_time: Math.floor(Math.random() * 60),
 				cook_time: Math.floor(Math.random() * 180),
-				instructions: ptr.url, 
-				rating: Math.floor(Math.random() * 10) + 1 
+				instructions: ptr.url,
+				rating: Math.floor(Math.random() * 10) + 1
 			};
 			recipes.push(recipe);
 		}
-    
+
 		const jRecipes = JSON.stringify(recipes);
 		console.log(jRecipes);
 	}
 }
 
-
 const edaman = new EdamamAPI();
-const searchTerm = process.argv.slice(2).join(" ") || "";
-console.log("search for " + searchTerm);
-edaman.findRecipe(searchTerm || "");
+
+function searchRecipe(searchTerm) {
+	return new Promise((resolve, reject) => {
+		edaman.findRecipe(searchTerm)
+		.then(res => {
+			resolve(res.hits);
+		}).catch(err => reject(err));
+	});
+}
+
+
+async function printRecipes(outputFile = 'recipe_raw_data.js') {
+	let recipes = [];
+	const fs = require('fs');
+
+	for (let i = 2; i < process.argv.length; i++) {
+		const result = await searchRecipe(process.argv[i]);
+		setTimeout(() => { console.log("Next...")}, 3000);
+		// console.log("**** RESULT ****", JSON.stringify(result));
+		recipes = recipes.concat(result);
+	}
+	
+	// console.log(JSON.stringify(recipes));
+	fs.writeFileSync(outputFile, JSON.stringify(recipes, null, 2), 'utf8');
+	process.exit(0);
+}
+
+printRecipes();

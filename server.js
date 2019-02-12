@@ -55,8 +55,10 @@ app.use(function(req, res, next) {
 
 // Routes for users
 // --> middleware should come before other routes
-const users = require("./routes/users");
-app.use("/users", users);
+const userSession = require("./routes/users");
+const userRoutes = require("./routes/userRoutes");
+app.use("/users", userSession);
+app.use("/users", userRoutes);
 
 // Routes
 require("./routes/apiRoutes")(app);
@@ -73,6 +75,12 @@ if (process.env.NODE_ENV === "test") {
 
 // Starting the server, syncing our models ------------------------------------/
 db.sequelize.sync(syncOptions).then(function() {
+	// Load mock data
+	if (process.argv[2]) {
+		const loadData = require(process.argv[2]);
+		loadData();
+	}
+	
 	app.listen(PORT, function() {
 		console.log(
 			"==> 🌎  Listening on port %s. Visit http://localhost:%s/ in your browser.",
