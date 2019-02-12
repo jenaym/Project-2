@@ -3,13 +3,19 @@
 //
 
 module.exports = function(sequelize, DataTypes) {
-    var Recipes = sequelize.define("Recipes", {
-        recipe_name: DataTypes.STRING,
+	var Recipes = sequelize.define("Recipes", {
+        name: DataTypes.STRING,
         description: DataTypes.TEXT,
-        recipe_image: DataTypes.STRING,
+        image: DataTypes.BLOB("long"),
+        gluten_free: DataTypes.BOOLEAN,
+        dairy_free: DataTypes.BOOLEAN,
+        vegetarian: DataTypes.BOOLEAN,
+        vegan: DataTypes.BOOLEAN,
         prep_time: DataTypes.INTEGER,
+        cook_time: DataTypes.INTEGER,
+        instructions: DataTypes.TEXT,
         rating: DataTypes.INTEGER
     });
     
-    return Recipes;
+	return Recipes;
 };

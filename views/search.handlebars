@@ -7,16 +7,15 @@
                         <h1 class="display-4">Advanced Search</h1>
                     </div>
                     <p>
-
                         <form id="inputField" class="input">
                             <!-- RECIPE (inputid = foodName) -->
                             <div class="form-group">
                                 <label for="mealType">Select Meal Type:</label>
                                 <select class="form-control" id="mealType">
-                                    <option value="1">Breakfast</option>
-                                    <option value="2">Lunch</option>
-                                    <option value="3">Dinner</option>
-                                    <option value="4">Dessert</option>
+                                    <option value="breakfast">Breakfast</option>
+                                    <option value="lunch">Lunch</option>
+                                    <option value="dinner">Dinner</option>
+                                    <option value="dessert">Dessert</option>
                                 </select>
                             </div>
                             <div class="form-group">
@@ -92,6 +91,7 @@
                                     <option value="4">Greater than 600</option>
                                 </select>
                             </div>
+                            <button type="submit" class="searchRecipe">Search</button>
                         </form>
                     </p>
                 </div>
@@ -99,3 +99,5 @@
         </div>
     </div>
 </div>
+
+<script type="text/javascript" src="/js/search.js" charset="utf-8"></script>
