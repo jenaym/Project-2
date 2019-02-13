@@ -24,11 +24,7 @@ router.get("/logout", (req, res) => {
 // User Login Form Post Route
 router.post("/login", (req, res, next) => {
 	passport.authenticate("local", {
-<<<<<<< HEAD
-		successRedirect: "/users/" + req.user,
-=======
 		successRedirect: "/users/index",
->>>>>>> 31ff5ec95ca8769a03a582511545ccb112508df6
 		failureRedirect: "/users/login",
 		failureFlash: true
 	})(req, res, next);
