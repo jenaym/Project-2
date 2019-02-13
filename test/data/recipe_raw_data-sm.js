@@ -3,7 +3,7 @@ module.exports = [
     "recipe": {
       "uri": "http://www.edamam.com/ontologies/edamam.owl#recipe_1442f56bf2423809ac3066c272613f74",
       "label": "Red Lentil Pâté Bruschetta with Poached Eggs recipes",
-      "image": "https://www.edamam.com/web-img/2dd/2dd342e3121a1e6d2fc3a54454989e58",
+      "imageURL": "https://www.edamam.com/web-img/2dd/2dd342e3121a1e6d2fc3a54454989e58",
       "source": "Chowhound",
       "url": "http://www.chowhound.com/recipes/red-lentil-pate-bruschetta-with-poached-eggs-11007",
       "shareAs": "http://www.edamam.com/recipe/red-lentil-pa-te-bruschetta-with-poached-eggs-recipes-1442f56bf2423809ac3066c272613f74/lentil",
@@ -636,7 +636,7 @@ module.exports = [
     "recipe": {
       "uri": "http://www.edamam.com/ontologies/edamam.owl#recipe_647d17e5f8f3c72121d0c84a651cc4d6",
       "label": "Vegetarian Lentil Burger Recipe",
-      "image": "https://www.edamam.com/web-img/3ee/3eef6e4d00e7164a4a49fb89e42674d2.jpg",
+      "imageURL": "https://www.edamam.com/web-img/3ee/3eef6e4d00e7164a4a49fb89e42674d2.jpg",
       "source": "101 Cookbooks",
       "url": "http://www.101cookbooks.com/archives/vegetarian-lentil-burgers-recipe.html",
       "shareAs": "http://www.edamam.com/recipe/vegetarian-lentil-burger-recipe-647d17e5f8f3c72121d0c84a651cc4d6/lentil",
@@ -1275,7 +1275,7 @@ module.exports = [
     "recipe": {
       "uri": "http://www.edamam.com/ontologies/edamam.owl#recipe_231b70cc1fdf36eb01292d5222de7e70",
       "label": "Lentil tabbouleh",
-      "image": "https://www.edamam.com/web-img/360/360d77d4296e669151b53bcd19846ac3.jpg",
+      "imageURL": "https://www.edamam.com/web-img/360/360d77d4296e669151b53bcd19846ac3.jpg",
       "source": "Jamie Oliver",
       "url": "http://www.jamieoliver.com/recipes/vegetables-recipes/lentil-tabbouleh/",
       "shareAs": "http://www.edamam.com/recipe/lentil-tabbouleh-231b70cc1fdf36eb01292d5222de7e70/lentil",
@@ -1880,7 +1880,7 @@ module.exports = [
     "recipe": {
       "uri": "http://www.edamam.com/ontologies/edamam.owl#recipe_ad981673c2e76c13f2f52790aac9ce2e",
       "label": "Lentil Curry Stew",
-      "image": "https://www.edamam.com/web-img/118/118223befb94d9b55c18d83759d5a3a3.JPG",
+      "imageURL": "https://www.edamam.com/web-img/118/118223befb94d9b55c18d83759d5a3a3.JPG",
       "source": "Food52",
       "url": "https://food52.com/recipes/8458-lentil-curry-stew",
       "shareAs": "http://www.edamam.com/recipe/lentil-curry-stew-ad981673c2e76c13f2f52790aac9ce2e/lentil",
@@ -2551,7 +2551,7 @@ module.exports = [
     "recipe": {
       "uri": "http://www.edamam.com/ontologies/edamam.owl#recipe_0f1bc11ed7b058c88fb2b817b7ebf734",
       "label": "Lentil-Sausage Stew",
-      "image": "https://www.edamam.com/web-img/720/7200a238bf40086110d1e4da72224dad.jpg",
+      "imageURL": "https://www.edamam.com/web-img/720/7200a238bf40086110d1e4da72224dad.jpg",
       "source": "Delish",
       "url": "http://www.delish.com/cooking/recipe-ideas/recipes/a24598/lentil-sausage-stew-544/",
       "shareAs": "http://www.edamam.com/recipe/lentil-sausage-stew-0f1bc11ed7b058c88fb2b817b7ebf734/lentil",
@@ -3164,7 +3164,7 @@ module.exports = [
     "recipe": {
       "uri": "http://www.edamam.com/ontologies/edamam.owl#recipe_b79327d05b8e5b838ad6cfd9576b30b6",
       "label": "Chicken Vesuvio",
-      "image": "https://www.edamam.com/web-img/e42/e42f9119813e890af34c259785ae1cfb.jpg",
+      "imageURL": "https://www.edamam.com/web-img/e42/e42f9119813e890af34c259785ae1cfb.jpg",
       "source": "Serious Eats",
       "url": "http://www.seriouseats.com/recipes/2011/12/chicken-vesuvio-recipe.html",
       "shareAs": "http://www.edamam.com/recipe/chicken-vesuvio-b79327d05b8e5b838ad6cfd9576b30b6/chicken",
@@ -3819,7 +3819,7 @@ module.exports = [
     "recipe": {
       "uri": "http://www.edamam.com/ontologies/edamam.owl#recipe_8275bb28647abcedef0baaf2dcf34f8b",
       "label": "Chicken Paprikash",
-      "image": "https://www.edamam.com/web-img/e12/e12b8c5581226d7639168f41d126f2ff.jpg",
+      "imageURL": "https://www.edamam.com/web-img/e12/e12b8c5581226d7639168f41d126f2ff.jpg",
       "source": "No Recipes",
       "url": "http://norecipes.com/recipe/chicken-paprikash/",
       "shareAs": "http://www.edamam.com/recipe/chicken-paprikash-8275bb28647abcedef0baaf2dcf34f8b/chicken",
@@ -4480,7 +4480,7 @@ module.exports = [
     "recipe": {
       "uri": "http://www.edamam.com/ontologies/edamam.owl#recipe_584ac5e486c088b3c8409c252d7f290c",
       "label": "Chicken Gravy",
-      "image": "https://www.edamam.com/web-img/fd1/fd1afed1849c44f5185720394e363b4e.jpg",
+      "imageURL": "https://www.edamam.com/web-img/fd1/fd1afed1849c44f5185720394e363b4e.jpg",
       "source": "Martha Stewart",
       "url": "http://www.marthastewart.com/332664/chicken-gravy",
       "shareAs": "http://www.edamam.com/recipe/chicken-gravy-584ac5e486c088b3c8409c252d7f290c/chicken",
@@ -5125,7 +5125,7 @@ module.exports = [
     "recipe": {
       "uri": "http://www.edamam.com/ontologies/edamam.owl#recipe_2463f2482609d7a471dbbf3b268bd956",
       "label": "Catalan Chicken",
-      "image": "https://www.edamam.com/web-img/4d9/4d9084cbc170789caa9e997108b595de.jpg",
+      "imageURL": "https://www.edamam.com/web-img/4d9/4d9084cbc170789caa9e997108b595de.jpg",
       "source": "Bon Appetit",
       "url": "http://www.bonappetit.com/columns/breadwinner/article/how-to-get-your-kids-to-eat-sauce-let-them-cook-it-themselves",
       "shareAs": "http://www.edamam.com/recipe/catalan-chicken-2463f2482609d7a471dbbf3b268bd956/chicken",
@@ -5757,7 +5757,7 @@ module.exports = [
     "recipe": {
       "uri": "http://www.edamam.com/ontologies/edamam.owl#recipe_d81795fb677ba4f12ab1a104e10aac98",
       "label": "Citrus Roasted Chicken",
-      "image": "https://www.edamam.com/web-img/d4b/d4bb1e6c7a6c3738d8e01707eb0ad83d.jpg",
+      "imageURL": "https://www.edamam.com/web-img/d4b/d4bb1e6c7a6c3738d8e01707eb0ad83d.jpg",
       "source": "Food52",
       "url": "https://food52.com/recipes/3403-citrus-roasted-chicken",
       "shareAs": "http://www.edamam.com/recipe/citrus-roasted-chicken-d81795fb677ba4f12ab1a104e10aac98/chicken",
@@ -6389,7 +6389,7 @@ module.exports = [
     "recipe": {
       "uri": "http://www.edamam.com/ontologies/edamam.owl#recipe_42d09c86eefe16e6cc02647ba35d791e",
       "label": "Charles Phan's Spicy Soy Sauce",
-      "image": "https://www.edamam.com/web-img/a16/a16bde874804e2df5af19f3f97b7c99d.jpg",
+      "imageURL": "https://www.edamam.com/web-img/a16/a16bde874804e2df5af19f3f97b7c99d.jpg",
       "source": "Serious Eats",
       "url": "http://www.seriouseats.com/recipes/2013/01/charles-phans-spicy-soy-sauce-recipe.html",
       "shareAs": "http://www.edamam.com/recipe/charles-phan-s-spicy-soy-sauce-42d09c86eefe16e6cc02647ba35d791e/soy",
@@ -6986,7 +6986,7 @@ module.exports = [
     "recipe": {
       "uri": "http://www.edamam.com/ontologies/edamam.owl#recipe_2e42558daf98dc90fc818fcd23ca7645",
       "label": "Asparagus With Butter And Soy",
-      "image": "https://www.edamam.com/web-img/1d8/1d835de984cdb296348ce2af92a4bde2.jpg",
+      "imageURL": "https://www.edamam.com/web-img/1d8/1d835de984cdb296348ce2af92a4bde2.jpg",
       "source": "Lottie + Doof",
       "url": "http://www.lottieanddoof.com/2011/06/asparagus-with-butter-and-soy/",
       "shareAs": "http://www.edamam.com/recipe/asparagus-with-butter-and-soy-2e42558daf98dc90fc818fcd23ca7645/soy",
@@ -7625,7 +7625,7 @@ module.exports = [
     "recipe": {
       "uri": "http://www.edamam.com/ontologies/edamam.owl#recipe_b558bc331fcff6ec8c82cdb5a7f9cedd",
       "label": "Speedy Soy Spinach",
-      "image": "https://www.edamam.com/web-img/1f2/1f2286bc8db8236cd6f8512d98832fbe.jpg",
+      "imageURL": "https://www.edamam.com/web-img/1f2/1f2286bc8db8236cd6f8512d98832fbe.jpg",
       "source": "BBC Good Food",
       "url": "http://www.bbcgoodfood.com/recipes/2212/",
       "shareAs": "http://www.edamam.com/recipe/speedy-soy-spinach-b558bc331fcff6ec8c82cdb5a7f9cedd/soy",
@@ -8223,7 +8223,7 @@ module.exports = [
     "recipe": {
       "uri": "http://www.edamam.com/ontologies/edamam.owl#recipe_7a1b7ef1a973d979aa23696b763f6fbe",
       "label": "Strawberry Soy Smoothie recipes",
-      "image": "https://www.edamam.com/web-img/57d/57df02c2dd2efc634b936edab0162312",
+      "imageURL": "https://www.edamam.com/web-img/57d/57df02c2dd2efc634b936edab0162312",
       "source": "Martha Stewart",
       "url": "http://www.marthastewart.com/313716/strawberry-soy-smoothie",
       "shareAs": "http://www.edamam.com/recipe/strawberry-soy-smoothie-recipes-7a1b7ef1a973d979aa23696b763f6fbe/soy",
@@ -8819,7 +8819,7 @@ module.exports = [
     "recipe": {
       "uri": "http://www.edamam.com/ontologies/edamam.owl#recipe_21abf6912fb415cb9cdc496778d30e95",
       "label": "Eggplant With Sweet Sesame Soy",
-      "image": "https://www.edamam.com/web-img/c87/c876182a789da04298246f1c05c83ef0.jpg",
+      "imageURL": "https://www.edamam.com/web-img/c87/c876182a789da04298246f1c05c83ef0.jpg",
       "source": "Big Girls Small Kitchen",
       "url": "http://www.biggirlssmallkitchen.com/2009/08/cooking-for-others-backseat-chef.html",
       "shareAs": "http://www.edamam.com/recipe/eggplant-with-sweet-sesame-soy-21abf6912fb415cb9cdc496778d30e95/soy",

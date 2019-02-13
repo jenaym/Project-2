@@ -7,6 +7,7 @@ module.exports = function(sequelize, DataTypes) {
         name: DataTypes.STRING,
         description: DataTypes.TEXT,
         image: DataTypes.BLOB("long"),
+        imageURL: DataTypes.STRING,
         gluten_free: DataTypes.BOOLEAN,
         dairy_free: DataTypes.BOOLEAN,
         vegetarian: DataTypes.BOOLEAN,

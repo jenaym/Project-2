@@ -25,7 +25,7 @@
 // };
 var db = require("../models");
 const ensureAuthenticated = require("./usersAuthHelper");
-var multiparty = require('multiparty');
+var multiparty = require("multiparty");
 var fs = require("fs");
 
 module.exports = function(app) {
@@ -51,7 +51,7 @@ module.exports = function(app) {
 					recipe: dbRecipe,
 					products: products
 				};
-
+				dbRecipe.image = dbRecipe.image.toString("base64");		
 				res.json(response);
 			});
 		});
