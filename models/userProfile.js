@@ -11,7 +11,7 @@ module.exports = function(sequelize, DataTypes) {
 		// true/false if the recipe is user's favorite
 		favorite: {
 			type: DataTypes.BOOLEAN,
-			defaultValue: true
+			defaultValue: false
 		},
 		// whether or not a recipe is posted by the user 
 		posted: {
