@@ -45,7 +45,7 @@ async function insertData() {
 		let _recipe = {
 			name: ptr.label,
 			description: ptr.url,
-			imageURL: ptr.imageURL,
+			imageURL: ptr.image,
 			gluten_free: (ptr.cautions.findIndex(e => /Gluten/i.test(e)) > -1),
 			dairy_free: (ptr.ingredientLines.findIndex(e => /milk|cheese/i.test(e)) > -1),
 			vegetarian: (ptr.healthLabels.findIndex(e => /vegetarian/i.test(e)) > -1),
