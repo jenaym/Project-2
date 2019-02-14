@@ -43,25 +43,27 @@
                   </div>
                 </div>
               </div>
-              <div class="allIngredients">
+            </div>
+            <div class="allIngredients">
+              <div class="ingrItem">
                 <div class="form-row">
                   <!-- INGREDIENT (inputid = ingredient) -->
                   <div class="form-group col-md-6">
                     <label>Ingredients</label>
-                    <input id="ingredient" type="text" class="form-control" placeholder="Ingredient">
+                    <input class="ingredient" id="ingrID-1" type="text" class="form-control" placeholder="Ingredient">
                   </div>
 
                   <!-- QUANTITY (inputid = quantity) -->
                   <div class="form-group col-md-3">
                     <label>Quantity</label>
-                    <input id="quantity" type="text" class="form-control" placeholder="Whole #">
+                    <input class="quantity" id="qtyID-1" type="text" class="form-control" placeholder="Whole #">
                   </div>
 
                   <!-- UNIT (inputid = unit) -->
                   <div class="form-group col-md-3">
                     <label>Unit</label>
                     <div>
-                      <select id="unit">
+                      <select class="unit" id="unitID-1">
                         <option selected>Choose...</option>
                         <option value="teaspoon">teaspoon</option>
                         <option value="tablespoon">tablespoon</option>
@@ -73,8 +75,17 @@
                       </select>
                     </div>
                   </div>
+
                 </div>
               </div>
+            </div>
+            <br>
+
+            <!-- ADD INGREDIENT BUTTON-->
+            <div class="col-md-5">
+              <label>Add Ingredient</label>
+              <button class="addIngredient" type="submit" class="btn btn-light">+</button>
+            </div>
               <br>
 
               <!-- ADD INGREDIENT BUTTON-->
@@ -153,5 +164,5 @@
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js">
   </script>
 
-  <script src="/js/index.js"></script>
+  <script type="text/javascript" src="/js/index.js"></script>
   <script type="text/javascript" src="/js/post.js" charset="utf-8"></script>
