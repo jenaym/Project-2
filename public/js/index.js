@@ -1,20 +1,21 @@
 // Get references to page elements
 const recipeName = $("#recipe-name");
 const recipeDescription = $("#description");
-const glutenFree = $("#glutenFree")
-const dairyFree = $("#dairyFree")
-const vegan = $("#vegan")
-const vegetarian = $("#vegetarian")
-const prepTime = $("#prepTime")
-const cookTime = $("#cookTime")
-const instructions = $("#instructions")
+const glutenFree = $("#glutenFree");
+const dairyFree = $("#dairyFree");
+const vegan = $("#vegan");
+const vegetarian = $("#vegetarian");
+const prepTime = $("#prepTime");
+const cookTime = $("#cookTime");
+const instructions = $("#instructions");
 const img = $("#recipe-image");
 const postBtn = $("#postButton");
 const recipeList = $("#recipe-list");
 
+
 // The API object contains methods for each kind of request we'll make
 var API = {
-	saveRecipe: function(recipe) {
+	saveRecipe: function (recipe) {
 		return $.ajax({
 			headers: {
 				"Content-Type": "application/json"
@@ -36,36 +37,71 @@ var API = {
 			alert("File size below 1MB is expected.");
 			return;
 		}
-
 		var data = new FormData();
 		data.append("image", file);
-		
 		var xhr = new XMLHttpRequest();
 		xhr.withCredentials = true;
 		
 		xhr.open("PUT", "api/recipes/" + id + "/image");
 		xhr.setRequestHeader("cache-control", "no-cache");
-		
 		xhr.send(data);
 	},
+
 	getRecipe: function() {
 		return $.ajax({
 			url: "api/recipes",
 			type: "GET"
 		});
 	},
-	deleteRecipe: function(id) {
+	deleteRecipe: function (id) {
 		return $.ajax({
 			url: "api/recipes/" + id,
 			type: "DELETE"
 		});
+	},
+	saveIndvProduct: function (product, callback) {
+		return $.ajax({
+			headers: {
+				"Content-Type": "application/json"
+			},
+			url: "api/products",
+			type: "POST",
+			data: JSON.stringify(product)
+		}).then(productId => {
+			callback(productId);
+		}).catch(err => console.log(err));
+	},
+	getProduct: function () {
+		return $.ajax({
+			url: "api/products/",
+			type: "GET"
+		});
+	},
+	saveIngredient: function (recipeId, ingredient) {
+		return $.ajax({
+			headers: {
+				"Content-Type": "application/json"
+			},
+			url: "api/recipes/" + recipeId + "/ingredients",
+			type: "POST",
+			data: JSON.stringify(ingredient)
+		});
 	}
+	// updateRating: function(rating){
+	// 	return $.ajax({
+	// 		url: "/api/recipes/" + id,
+	// 		type: "POST",
+	// 		data: rating,
+	// 	})
+	// }
+	// }
 };
 
+
 // refreshRecipes gets new recipes from the db and repopulates the list
-var refreshRecipes = function() {
-	API.getRecipe().then(function(data) {
-		var $recipes = data.map(function(recipe) {
+var refreshRecipes = function () {
+	API.getRecipe().then(function (data) {
+		var $recipes = data.map(function (recipe) {
 			var $a = $("<a>")
 				.text(recipe.name)
 				.attr("href", "/recipe/" + recipe.id);
@@ -93,33 +129,96 @@ var refreshRecipes = function() {
 
 // handleFormSubmit is called whenever we submit a new recipe
 // Save the new recipe to the db and refresh the list
-var handleFormSubmit = function(event) {
+var handleFormSubmit = function (event) {
 	event.preventDefault();
 
+	var recipe = {
+		name: recipeName.val().trim(),
+		description: recipeDescription.val().trim(),
+		gluten_free: glutenFree.is(':checked', function () {
+			glutenFree.prop('checked', true)
+		}),
+		dairy_free: dairyFree.is(':checked', function () {
+			glutenFree.prop('checked', true)
+		}),
+		vegetarian: vegetarian.is(':checked', function () {
+			glutenFree.prop('checked', true)
+		}),
+		vegan: vegan.is(':checked', function () {
+			glutenFree.prop('checked', true)
+		}),
+		prep_time: prepTime.val().trim(),
+		cook_time: cookTime.val().trim(),
+		instructions: instructions.val().trim(),
+	};
 
-  var recipe = {
-    name: recipeName.val().trim(),
-    description: recipeDescription.val().trim(),
-    gluten_free: glutenFree.is(':checked', function() { glutenFree.prop('checked', true) }),
-    dairy_free: dairyFree.is(':checked', function() { glutenFree.prop('checked', true) }),
-    vegetarian: vegetarian.is(':checked', function() { glutenFree.prop('checked', true) }),
-    vegan: vegan.is(':checked', function() { glutenFree.prop('checked', true) }),
-    prep_time: prepTime.val().trim(),
-    cook_time: cookTime.val().trim(),
-    instructions: instructions.val().trim(),
-  };
+	var recipe = {
+		name: recipeName.val().trim(),
+		description: recipeDescription.val().trim(),
+		gluten_free: glutenFree.is(":checked", function() { glutenFree.prop("checked", true); }),
+		dairy_free: dairyFree.is(":checked", function() { glutenFree.prop("checked", true); }),
+		vegetarian: vegetarian.is(":checked", function() { glutenFree.prop("checked", true); }),
+		vegan: vegan.is(":checked", function() { glutenFree.prop("checked", true); }),
+		prep_time: prepTime.val().trim(),
+		cook_time: cookTime.val().trim(),
+		instructions: instructions.val().trim(),
+	};
   
 	console.log("RECIPE: " + JSON.stringify(recipe));
+
+	// Accumulate ingredients and products in arrays
+	let ingredients = [];
+	let products = [];
+
+	// The number of ingredients the user input
+	const numIngredients = $(".ingrItem").length;
+	console.log("INGRE ITEMS = " + numIngredients);
+
+	// Get the inputs and store into ingredients and products arrays
+	for (let j = 1; j <= numIngredients; j++) {
+		const ingrName = $(`#ingrID-${j}`).val().trim();
+		const qty = $(`#qtyID-${j}`).val().trim();
+		const unit = $(`#unitID-${j} option:selected`).text();
+
+		ingredients.push({
+			amount: qty,
+			measurement: unit
+		});
+		products.push({
+			name: ingrName,
+		});
+	}
 
 	if (!(recipe.name && recipe.description)) {
 		alert("You must enter a recipe name and description!");
 		return;
 	}
 
-	API.saveRecipe(recipe).then(function(resp) {
-		API.setRecipeImage(resp, img[0].files[0]).then(function() {
-			refreshRecipes();
-		});
+
+	API.saveRecipe(recipe).then(function (resp) {
+		// if (img[0]) { // IFF there's an image input, THEN store in database
+		// 	API.setRecipeImage(resp, img[0].files[0]).then(function () {
+		// 		refreshRecipes(); // not sure if this might interfere w/ the rest
+		// 	});
+		// }
+		
+		console.log("Got recipe ID: " + resp);
+		for (let j = 0; j < numIngredients; j++) {
+			API.saveIndvProduct(products[j], function(productId) {
+				if (productId) {
+					console.log(`Product ID = ${productId}`);
+					ingredients[j].RecipeId = resp;
+					ingredients[j].ProductId = productId;
+					API.saveIngredient(resp, ingredients[j]);
+				}
+			});
+			console.log(`Product ${j}`);
+		}
+		
+		// TO-DO
+		// 1. Protect this recipe POST route, enable only when a user logged in
+		// 2. set posted=true in UserProfile with this recipe-id and user-id 
+
 	});
 
 	recipeName.val("");
@@ -128,16 +227,26 @@ var handleFormSubmit = function(event) {
 
 // handleDeleteBtnClick is called when an recipe's delete button is clicked
 // Remove the recipe from the db and refresh the list
-var handleDeleteBtnClick = function() {
+var handleDeleteBtnClick = function () {
 	var idToDelete = $(this)
 		.parent()
 		.attr("data-id");
 
-	API.deleteRecipe(idToDelete).then(function() {
+	API.deleteRecipe(idToDelete).then(function () {
 		refreshRecipes();
 	});
 };
 
+
+
 // Add event listeners to the submit and delete buttons
 postBtn.on("click", handleFormSubmit);
 recipeList.on("click", ".delete", handleDeleteBtnClick);
+
+
+
+
+
+
+
+

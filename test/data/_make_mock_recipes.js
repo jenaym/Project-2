@@ -101,7 +101,7 @@ class EdamamAPI {
 			let recipe = {
 				name: ptr.label,
 				description: ptr.uri,
-				image: ptr.image,
+				imageURL: ptr.imageURL,
 				gluten_free: (Math.random() > 0.5),
 				dairy_free: (Math.random() > 0.5),
 				vegetarian: (Math.random() > 0.5),

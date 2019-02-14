@@ -1,5 +1,6 @@
 //
-// Ingredients Schema Model
+// Products Schema Model
+//
 
 // module.exports = function(sequelize, DataTypes) {
 //     var Ingredients = sequelize.define("Ingredients", {
@@ -19,12 +20,13 @@
 //     return Ingredient;
 //   };
 
+
 module.exports = function(sequelize, DataTypes) {
 	var Ingredients = sequelize.define("Ingredients", {
-		// name: DataTypes.STRING,
-		amount: DataTypes.INTEGER
+		amount: DataTypes.INTEGER,
+		measurement: DataTypes.STRING
 	});
-    
+
 	return Ingredients;
 };
 
