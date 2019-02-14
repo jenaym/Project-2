@@ -53,12 +53,13 @@ body{
 }
 /* #home{ */
 /* background: url(../images/baking-bread-cooking-1070880.jpg) no-repeat center center fixed;   -webkit-background-size: cover; */
- /* background-color: pink;
+/* background-color: pink;
 -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
   background-position: fixed;
- } */
+ }
+*/
  
  /* inside index.handlebars */
  #indexBody {

@@ -29,8 +29,5 @@ $(document).ready(function() {
 			$(ingredientList).append(newIngredient);
 		}
 	});
-
-
-
 });
 		

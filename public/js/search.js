@@ -6,7 +6,6 @@ $(document).ready(function() {
 		var proteinType = $("#proteinType").val().trim();
 		var veggieType = $("#veggieType").val();
 
-
 		$.ajax("/api/burgers/" + id, {
 			type: "PUT",
 			data: updatedBurger
