@@ -284,7 +284,7 @@ function getRecommendedRecipes(num = 5) {
 		db.UserProfile.findAll({
 			attributes: ['RecipeId', [db.sequelize.fn('sum', db.sequelize.col('favorite')), 'fav']],
 			group: 'RecipeId',
-			// order: 'favorite DESC',
+			// order: 'fav DESC',
 			limit: num,
 		})
 		.then(recipes => {

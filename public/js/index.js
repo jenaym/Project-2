@@ -26,7 +26,6 @@ var API = {
 		});
 	},
 	setRecipeImage: function(id, file) {
-
 		// Only JPEG files less than 1MB
 		if (file.type != "image/jpeg") {
 			alert("JPEG image format is expected.");
@@ -37,16 +36,16 @@ var API = {
 			alert("File size below 1MB is expected.");
 			return;
 		}
+
 		var data = new FormData();
 		data.append("image", file);
 		var xhr = new XMLHttpRequest();
 		xhr.withCredentials = true;
-		
+
 		xhr.open("PUT", "api/recipes/" + id + "/image");
 		xhr.setRequestHeader("cache-control", "no-cache");
 		xhr.send(data);
 	},
-
 	getRecipe: function() {
 		return $.ajax({
 			url: "api/recipes",
@@ -146,35 +145,15 @@ var handleFormSubmit = function (event) {
 	var recipe = {
 		name: recipeName.val().trim(),
 		description: recipeDescription.val().trim(),
-		gluten_free: glutenFree.is(':checked', function () {
-			glutenFree.prop('checked', true)
-		}),
-		dairy_free: dairyFree.is(':checked', function () {
-			glutenFree.prop('checked', true)
-		}),
-		vegetarian: vegetarian.is(':checked', function () {
-			glutenFree.prop('checked', true)
-		}),
-		vegan: vegan.is(':checked', function () {
-			glutenFree.prop('checked', true)
-		}),
+		gluten_free: glutenFree.is(":checked", function () { glutenFree.prop("checked", true); }),
+		dairy_free: dairyFree.is(":checked", function () { glutenFree.prop("checked", true); }),
+		vegetarian: vegetarian.is(":checked", function () { glutenFree.prop("checked", true); }),
+		vegan: vegan.is(":checked", function () { glutenFree.prop("checked", true); }),
 		prep_time: prepTime.val().trim(),
 		cook_time: cookTime.val().trim(),
 		instructions: instructions.val().trim(),
 	};
 
-	var recipe = {
-		name: recipeName.val().trim(),
-		description: recipeDescription.val().trim(),
-		gluten_free: glutenFree.is(":checked", function() { glutenFree.prop("checked", true); }),
-		dairy_free: dairyFree.is(":checked", function() { glutenFree.prop("checked", true); }),
-		vegetarian: vegetarian.is(":checked", function() { glutenFree.prop("checked", true); }),
-		vegan: vegan.is(":checked", function() { glutenFree.prop("checked", true); }),
-		prep_time: prepTime.val().trim(),
-		cook_time: cookTime.val().trim(),
-		instructions: instructions.val().trim(),
-	};
-  
 	console.log("RECIPE: " + JSON.stringify(recipe));
 
 	// Accumulate ingredients and products in arrays
@@ -204,7 +183,6 @@ var handleFormSubmit = function (event) {
 		alert("You must enter a recipe name and description!");
 		return;
 	}
-
 
 	API.saveRecipe(recipe).then(function (resp) {
 		const imgFile = $("#recipe-image").val().trim();
