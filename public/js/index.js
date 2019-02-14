@@ -48,7 +48,8 @@ var API = {
 		
 		xhr.send(data);
 	},
-	getRecipes: function () {
+
+	getRecipe: function() {
 		return $.ajax({
 			url: "api/recipes",
 			type: "GET"
@@ -183,6 +184,7 @@ var handleFormSubmit = function (event) {
 		return;
 	}
 
+
 	API.saveRecipe(recipe).then(function (resp) {
 		// if (img[0]) { // IFF there's an image input, THEN store in database
 		// 	API.setRecipeImage(resp, img[0].files[0]).then(function () {
@@ -206,6 +208,7 @@ var handleFormSubmit = function (event) {
 		// TO-DO
 		// 1. Protect this recipe POST route, enable only when a user logged in
 		// 2. set posted=true in UserProfile with this recipe-id and user-id 
+
 	});
 
 	recipeName.val("");

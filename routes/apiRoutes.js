@@ -14,14 +14,14 @@ module.exports = function (app) {
 	});
 
 	// Get Recipe details by recipe id 
-	app.get("/api/recipes/:id", function (req, res) {
-		db.Recipes.findByPk(req.params.id).then(function (dbRecipe) {
+	app.get("/api/recipes/:id", function(req, res) {
+		db.Recipes.findByPk(req.params.id).then(function(dbRecipe) {
 			if (dbRecipe === null) {
 				res.status(404).send("Not Found");
 			}
 
 			// Sequelize provides getProducts() function, when we build associations 
-			dbRecipe.getProducts().then(function (products) {
+			dbRecipe.getProducts().then(function(products) {
 				var response = {
 					recipe: dbRecipe,
 					products: products
@@ -93,38 +93,40 @@ module.exports = function (app) {
 
 
 	// ======================== Update recipe rating ===========================
-	app.put("/api/recipes/:id/rating", function (req, res) {
-		db.Recipes.findByPk(req.params.id).then(function (dbRecipe) {
+	app.put("/api/recipes/:id/rating", function(req, res) {
+		db.Recipes.findByPk(req.params.id).then(function(dbRecipe) {
 			if (dbRecipe === null) {
 				res.status(404).send("Not Found");
 			}
-			dbRecipe.update({
-				rating: dbRecipe.rating + 1
-			}).then(function (dbRecipeUpdated) {
-				res.json(dbRecipeUpdated.id);
-			});
+			dbRecipe.update(
+				{
+					rating: dbRecipe.rating + 1
+				}).then(function(dbRecipeUpdated) {
+					res.json(dbRecipeUpdated.id);
+				});
 		});
 	});
 
 	//================================Upload Image=================================
-	app.put("/api/recipes/:id/image", function (req, res) {
+	app.put("/api/recipes/:id/image", function(req, res) {
 
 		var form = new multiparty.Form();
-		form.parse(req, function (err, fields, files) {
+		form.parse(req, function(err, fields, files) {
 			if (err) {
 				res.status(400).send("Bad User Input");
 			}
 
-			fs.readFile(files["image"][0].path, function (err, data) {
-				db.Recipes.findByPk(req.params.id).then(function (dbRecipe) {
+			fs.readFile(files["image"][0].path, function(err, data) {
+				db.Recipes.findByPk(req.params.id).then(function(dbRecipe) {
 					if (dbRecipe === null) {
 						res.status(404).send("Not Found");
 					}
-					dbRecipe.update({
-						image: data
-					}).then(function (dbRecipeUpdated) {
-						res.json(dbRecipeUpdated.id);
-					});
+					dbRecipe.update(
+						{
+							image: data
+						}).then(function(dbRecipeUpdated) {
+							res.json(dbRecipeUpdated.id);
+						});
 				});
 			});
 		});
