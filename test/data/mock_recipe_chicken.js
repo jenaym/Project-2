@@ -1,7 +1,7 @@
 module.exports = [{
 	"name": "Chicken Vesuvio",
 	"description": "http://www.edamam.com/ontologies/edamam.owl#recipe_b79327d05b8e5b838ad6cfd9576b30b6",
-	"imageURL": "https://www.edamam.com/web-img/e42/e42f9119813e890af34c259785ae1cfb.jpg",
+	"image": "https://www.edamam.com/web-img/e42/e42f9119813e890af34c259785ae1cfb.jpg",
 	"gluten_free": true,
 	"dairy_free": true,
 	"vegetarian": true,
@@ -13,7 +13,7 @@ module.exports = [{
 }, {
 	"name": "Chicken Paprikash",
 	"description": "http://www.edamam.com/ontologies/edamam.owl#recipe_8275bb28647abcedef0baaf2dcf34f8b",
-	"imageURL": "https://www.edamam.com/web-img/e12/e12b8c5581226d7639168f41d126f2ff.jpg",
+	"image": "https://www.edamam.com/web-img/e12/e12b8c5581226d7639168f41d126f2ff.jpg",
 	"gluten_free": true,
 	"dairy_free": true,
 	"vegetarian": false,
@@ -25,7 +25,7 @@ module.exports = [{
 }, {
 	"name": "Chicken Gravy",
 	"description": "http://www.edamam.com/ontologies/edamam.owl#recipe_584ac5e486c088b3c8409c252d7f290c",
-	"imageURL": "https://www.edamam.com/web-img/fd1/fd1afed1849c44f5185720394e363b4e.jpg",
+	"image": "https://www.edamam.com/web-img/fd1/fd1afed1849c44f5185720394e363b4e.jpg",
 	"gluten_free": true,
 	"dairy_free": true,
 	"vegetarian": true,
@@ -37,7 +37,7 @@ module.exports = [{
 }, {
 	"name": "Catalan Chicken",
 	"description": "http://www.edamam.com/ontologies/edamam.owl#recipe_2463f2482609d7a471dbbf3b268bd956",
-	"imageURL": "https://www.edamam.com/web-img/4d9/4d9084cbc170789caa9e997108b595de.jpg",
+	"image": "https://www.edamam.com/web-img/4d9/4d9084cbc170789caa9e997108b595de.jpg",
 	"gluten_free": true,
 	"dairy_free": true,
 	"vegetarian": false,
@@ -49,7 +49,7 @@ module.exports = [{
 }, {
 	"name": "Citrus Roasted Chicken",
 	"description": "http://www.edamam.com/ontologies/edamam.owl#recipe_d81795fb677ba4f12ab1a104e10aac98",
-	"imageURL": "https://www.edamam.com/web-img/d4b/d4bb1e6c7a6c3738d8e01707eb0ad83d.jpg",
+	"image": "https://www.edamam.com/web-img/d4b/d4bb1e6c7a6c3738d8e01707eb0ad83d.jpg",
 	"gluten_free": false,
 	"dairy_free": true,
 	"vegetarian": true,

@@ -20,14 +20,18 @@ module.exports = function (app) {
 				id: req.params.id
 			}
 		}).then(function (recipe) {
-			recipe.imageSrc = (recipe.image)
-				? `data:image/jpeg;base64, ${recipe.image.toString("base64")}`
-				: recipe.imageURL;
-			recipe.image = null;
-			recipe.imageURL = null;
-			res.render("recipe", {
-				recipe: recipe
-			});
+			if (recipe) {
+				recipe.imageSrc = (recipe.image)
+					? `data:image/jpeg;base64, ${recipe.image.toString("base64")}`
+					: recipe.imageURL;
+				recipe.image = null;
+				recipe.imageURL = null;
+				res.render("recipe", {
+					recipe: recipe
+				});
+			} else {
+				res.render("404");
+			}
 		});
 	});
 
