@@ -7,7 +7,7 @@
   <div class="card-columns">
    {{#each recipes.favorites}}
       <div class="card mt-2">
-        <img src="{{this.image}}" alt="recipe image unavailable" class="card-img-top img-thumbnail rounded">
+        <img src="{{this.imageSrc}}" alt="recipe image unavailable" class="card-img-top img-thumbnail rounded">
         <div class="card-body">
           <h5 class="card-title">{{this.name}}</h5>
           <p class="card-text">
@@ -27,7 +27,7 @@
   <div class="card-columns">
    {{#each recipes.recommend}}
       <div class="card mt-2">
-        <img src="{{this.image}}" alt="recipe image unavailable" class="card-img-top img-thumbnail rounded">
+        <img src="{{this.imageSrc}}" alt="recipe image unavailable" class="card-img-top img-thumbnail rounded">
         <div class="card-body">
           <h5 class="card-title">{{this.name}}</h5>
           <p class="card-text">
@@ -47,7 +47,7 @@
   <div class="card-columns">
     {{#each recipes.posted}}
       <div class="card mt-2">
-        <img class="card-img-top" src="{{this.image}}" alt="recipe image unavailable">
+        <img class="card-img-top" src="{{this.imageSrc}}" alt="recipe image unavailable">
         <div class="card-body">
           <h5 class="card-title">{{this.name}}</h5>
           <p class="card-text">

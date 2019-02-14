@@ -15,7 +15,7 @@ $(document).ready(function () {
 });
 
 //
-// Construct html element for a new ingredient 
+// Construct html elements for a new ingredient 
 //
 function makeNewIngredient(counter) {
     let newIngredient = $("<div>");

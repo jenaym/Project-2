@@ -130,6 +130,10 @@ function getAllRecipesByUser(userId) {
 				[Op.in]: items.map(recipe => recipe.id)
 			}).then(recipes => {
 				// console.log(`Found all recipes by userId[${userId}] ${JSON.stringify(recipes)}`);
+				recipes.forEach(recipe => {
+					fixRecipeImage(recipe);
+				});
+
 				resolve(recipes);
 			}).catch(err => reject(err));
 		}).catch(err => reject(err));
@@ -158,6 +162,10 @@ function getAllUserFavorites(userId) {
 			db.Recipes.findAll({
 				[Op.in]: items.map(recipe => recipe.id)
 			}).then(recipes => {
+				recipes.forEach(recipe => {
+					fixRecipeImage(recipe);
+				});
+
 				resolve(recipes);
 			}).catch(err => reject(err));
 		}).catch(err => reject(err));
@@ -180,10 +188,25 @@ function getRecipes(num = 5) {
 			limit: num
 		}).then(recipes => {
 			console.log(`Found ${recipes.length} recipes`);
-			if (!recipes || recipes.length === 0) recipes = null;
+			if (!recipes || recipes.length === 0) {
+				recipes = null;
+			} else {
+				recipes.forEach(recipe => {
+					fixRecipeImage(recipe);
+				});
+			}
+			
 			resolve(recipes);
 		}).catch(err => reject(err));
 	});
+}
+
+function fixRecipeImage(recipe) {
+	recipe.imageSrc = (recipe.image)
+		? `data:image/jpeg;base64, ${recipe.image.toString("base64")}`
+		: recipe.imageURL;
+	recipe.image = null;
+	recipe.imageURL = null;
 }
 
 // Export the router
