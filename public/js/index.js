@@ -37,16 +37,13 @@ var API = {
 			alert("File size below 1MB is expected.");
 			return;
 		}
-
 		var data = new FormData();
 		data.append("image", file);
-		
 		var xhr = new XMLHttpRequest();
 		xhr.withCredentials = true;
 		
 		xhr.open("PUT", "api/recipes/" + id + "/image");
 		xhr.setRequestHeader("cache-control", "no-cache");
-		
 		xhr.send(data);
 	},
 	getRecipe: function() {

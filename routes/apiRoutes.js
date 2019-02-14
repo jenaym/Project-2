@@ -52,6 +52,8 @@ module.exports = function(app) {
 					products: products
 				};
 
+				// TODO: Fix image vs imageURL as done in html route
+				dbRecipe.image = dbRecipe.image.toString("base64");		
 				res.json(response);
 			});
 		});
