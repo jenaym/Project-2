@@ -14,21 +14,21 @@ module.exports = function (app) {
 	});
 
 	// Get Recipe details by recipe id 
-	app.get("/api/recipes/:id", function(req, res) {
-		db.Recipes.findByPk(req.params.id).then(function(dbRecipe) {
+	app.get("/api/recipes/:id", function (req, res) {
+		db.Recipes.findByPk(req.params.id).then(function (dbRecipe) {
 			if (dbRecipe === null) {
 				res.status(404).send("Not Found");
 			}
 
 			// Sequelize provides getProducts() function, when we build associations 
-			dbRecipe.getProducts().then(function(products) {
+			dbRecipe.getProducts().then(function (products) {
 				var response = {
 					recipe: dbRecipe,
 					products: products
 				};
 
 				// TODO: Fix image vs imageURL as done in html route
-				dbRecipe.image = dbRecipe.image.toString("base64");		
+				dbRecipe.image = dbRecipe.image.toString("base64");
 				res.json(response);
 			});
 		});
@@ -51,35 +51,49 @@ module.exports = function (app) {
 	});
 
 	// Find/insert one product and return the id
-	app.post("/api/products", function(req, res) {
+	app.post("/api/products", function (req, res) {
 		db.Products.findOrCreate({
-			where: { name: req.body.name } })
-			.spread(function(product, created) {
+				where: {
+					name: req.body.name
+				},
+				defaults: req.body
+			})
+			.spread(function (product, created) {
 				console.log(created);
 				console.log(product.id)
 				res.json(product.id)
+			}).catch(err => {
+				console.log()
 			})
-
 	});
 
-
+	//
 	// Post Ingredients for a recipe
-	app.post("/api/recipes/:id/ingredients", function (req, res) {
-		// If an array, do bulk insertion
-		if (Array.isArray(req.body)) {
-			req.body.forEach(ingredient => {
-				ingredient["RecipeId"] = parseInt(req.params.id);
+	//	
+	// Table: ingredients
+	// Columns:
+	//   amount int(11) 
+	//   measurement varchar(255) 
+	//   createdAt datetime     <-- auto 
+	//   updatedAt datetime     <== auto
+	//   ProductId int(11) PK   <== REQUIRED
+	//   RecipeId int(11) PK    <== REQUIRED
+	//
+	app.post("/api/ingredient/:recipeid/:productid", function (req, res) {
+		db.Ingredients.findOrCreate({
+				where: {
+					RecipeId: req.params.recipeid,
+					ProductId: req.params.productid
+				},
+				defaults: req.body
+			})
+			.spread((ingr, created) => {
+				console.log("Ingredient inserted successfully");
+				return;
+			}).catch(err => {
+				console.log("Failed adding the ingredient ");
+				return;
 			});
-			db.Ingredients.bulkCreate(req.body).then(function (ingredients) {
-				console.log(ingredients);
-			});
-		} else { // a single ingredient
-			db.Ingredients.create(req.body)
-				.then(function (ingredients) {
-					// console.log("Ingredient inserted successfully", ingredients);
-					console.log("Ingredient inserted successfully");
-				});
-		}
 	});
 
 	// Delete a recipe by id
@@ -95,38 +109,36 @@ module.exports = function (app) {
 
 
 	// ======================== Update recipe rating ===========================
-	app.put("/api/recipes/:id/rating", function(req, res) {
-		db.Recipes.findByPk(req.params.id).then(function(dbRecipe) {
+	app.put("/api/recipes/:id/rating", function (req, res) {
+		db.Recipes.findByPk(req.params.id).then(function (dbRecipe) {
 			if (dbRecipe === null) {
 				res.status(404).send("Not Found");
 			}
-			dbRecipe.update(
-				{
-					rating: dbRecipe.rating + 1
-				}).then(function(dbRecipeUpdated) {
+			dbRecipe.update({
+				rating: dbRecipe.rating + 1
+			}).then(function (dbRecipeUpdated) {
 				res.json(dbRecipeUpdated);
 			});
 		});
 	});
 
 	//================================Upload Image=================================
-	app.put("/api/recipes/:id/image", function(req, res) {
+	app.put("/api/recipes/:id/image", function (req, res) {
 
 		var form = new multiparty.Form();
-		form.parse(req, function(err, fields, files) {
+		form.parse(req, function (err, fields, files) {
 			if (err) {
 				res.status(400).send("Bad User Input");
 			}
 
-			fs.readFile(files["image"][0].path, function(err, data) {
-				db.Recipes.findByPk(req.params.id).then(function(dbRecipe) {
+			fs.readFile(files["image"][0].path, function (err, data) {
+				db.Recipes.findByPk(req.params.id).then(function (dbRecipe) {
 					if (dbRecipe === null) {
 						res.status(404).send("Not Found");
 					}
-					dbRecipe.update(
-						{
-							image: data
-						}).then(function(dbRecipeUpdated) {
+					dbRecipe.update({
+						image: data
+					}).then(function (dbRecipeUpdated) {
 						res.json(dbRecipeUpdated.id);
 					});
 				});
