@@ -105,8 +105,8 @@ module.exports = function(app) {
 				{
 					rating: dbRecipe.rating + 1
 				}).then(function(dbRecipeUpdated) {
-					res.json(dbRecipeUpdated.id);
-				});
+				res.json(dbRecipeUpdated);
+			});
 		});
 	});
 
@@ -128,8 +128,8 @@ module.exports = function(app) {
 						{
 							image: data
 						}).then(function(dbRecipeUpdated) {
-							res.json(dbRecipeUpdated.id);
-						});
+						res.json(dbRecipeUpdated.id);
+					});
 				});
 			});
 		});
