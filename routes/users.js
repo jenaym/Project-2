@@ -42,10 +42,10 @@ router.post("/register", (req, res, next) => {
 	if (validatePassword(req, errors)) {
 		// Check if the email address is already registered
 		db.User.findOne({
-				where: {
-					email: req.body.email
-				}
-			})
+			where: {
+				email: req.body.email
+			}
+		})
 			.then(user => {
 				if (user) {
 					req.flash("error_msg", "A user with the same email address already exists");

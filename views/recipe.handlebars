@@ -14,6 +14,12 @@
             <a href="/">← Back To Home</a>
         </div>
       </div>
+
+      {{#if user}}
+      <button id="addFav" recipeId={{recipe.id}}>Favorite!</button>
+      {{/if}}
     </div>
   </div>
 </div>
+<script src="/js/favorite.js"></script>
+{{!-- handlebars tags pull based on the URL --}}
