@@ -4,7 +4,12 @@ const ensureAuthenticated = require("./usersAuthHelper");
 module.exports = function (app) {
 	// Load index page
 	app.get("/", function (req, res) {
-		db.Recipes.findAll({}).then(function (recipes) {
+		db.Recipes.findAll({
+			order: [
+				["rating", "DESC"]
+			],
+			limit: 5
+		}).then(function (recipes) {
 			console.log(JSON.stringify(recipes));
 			res.status(200).render("index", {
 				msg: "Welcome!!",
