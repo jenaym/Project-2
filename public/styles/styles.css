@@ -31,18 +31,18 @@ body{
   border-width: 1px 0px auto;
 }
 
-#favoriteRecipes{
+/* #favoriteRecipes{
   width: 100%;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-gap: 0px;
-}
+} */
 
-.favs{
+/* .favs{
   width: 50%;
   padding-top: 50%;
   color: white;
-}
+} */
 
 .list-group-item {
   line-height: 2.5;
