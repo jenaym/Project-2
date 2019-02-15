@@ -27,32 +27,7 @@ module.exports = function (app) {
 					products: products
 				};
 
-				// TODO: Fix image vs imageURL as done in html route
-				dbRecipe.image = dbRecipe.image.toString("base64");
 				res.json(response);
-			});
-		});
-	});
-
-
-	// ================================== calories calculation ====================================
-	app.get("/api/recipes/:id/calories", function(req, res){
-		db.Recipes.findByPk(req.params.id).then(function(dbRecipe) {
-			if (dbRecipe === null) {
-				res.status(404).send("Not Found");
-			}
-			dbRecipe.getProducts().then(function(products) {
-		/*		var response = {
-			//		recipe: dbRecipe,
-					products: products
-				};
-				*/
-				var total = 0;
-				products.forEach(product => {
-					total += product.calories * product.Ingredients.amount;
-				});
-				
-				res.json({"total": total});
 			});
 		});
 	});
