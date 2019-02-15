@@ -45,6 +45,10 @@ module.exports = function (app) {
 		res.render("search");
 	});
 
+	app.post("/search", function (req, res) {
+		res.render("search", req.body);
+	});
+
 	// Render 404 page for any unmatched routes
 	app.get("*", function (req, res) {
 		res.render("404");
