@@ -7,6 +7,9 @@
           <p>
             <strong>Recipe Name:</strong>: {{recipe.name}}</p>
           <p>
+          <p>
+            <strong>Description:</strong> {{recipe.description}}
+          </p>  
            <div class="row">
              <div class="column-5" style="margin: 20px">
               <p>
@@ -20,12 +23,11 @@
               {{#if recipe.dairy_free}}<p>Dairy free</p>{{/if}}
               {{#if recipe.vegetarian}}<p>Vegetarian</p>{{/if}}
               {{#if recipe.vegan}}<p>Vegan</p>{{/if}}
+              <p>Total Calories: {{totalCalories}}</p>
             </div>
           </div> 
           <p><strong>Rating: </strong><strong style="color: red">{{recipe.rating}}</strong></p>
-          <p>
-            <strong>Description:</strong> {{recipe.description}}</p>
-          <p><strong>Ingredients:</strong></p>
+            <p><strong>Ingredients:</strong></p>
           <ul>
             {{#each products}}
             <li>
@@ -33,10 +35,8 @@
             </li>
             {{/each}}
           </ul> 
-          
           <p>
-            <strong>Total Calories: </strong>{{totalCalories}}
-          </p>
+            <strong>Instructions:</strong> {{recipe.instructions}}</p>
           <a href="/">← Back To Home</a>
         </div>
       </div>
