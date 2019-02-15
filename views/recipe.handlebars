@@ -5,16 +5,24 @@
         <div class="card-body">
           <h5 class="card-title">Recipe</h5>
           <p>
-            <strong>ID</strong>: {{recipe.id}}</p>
+            <strong>Recipe Name:</strong>: {{recipe.name}}</p>
           <p>
           <p>
             <img src="{{recipe.imageSrc}}" width="200" height="auto" alt="image">
           </p>
           <p>
-            <strong>Recipe Name</strong>: {{recipe.name}}</p>
-          <p>
             <strong>Description:</strong> {{recipe.description}}</p>
-            <a href="/">← Back To Home</a>
+          {{#each products}}
+          <ul>
+            <li>
+              <strong>{{this.name}}</strong> amount: <strong>{{this.Ingredients.amount}} {{this.Ingredients.measurement}}</strong> calories per unit: <strong>{{this.calories}}</strong>
+            </li>
+          </ul> 
+          {{/each}}
+          <p>
+            <strong>Total Calories: </strong>{{totalCalories}}
+          </p>
+          <a href="/">← Back To Home</a>
         </div>
       </div>
 
