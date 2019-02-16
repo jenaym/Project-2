@@ -1,5 +1,5 @@
 {
-  "use_env_variable": true,
+  "use_env_variable": "production",
   "development": {
     "username": "root",
     "password": null,
@@ -15,7 +15,7 @@
     "dialect": "mysql",
     "logging": false
   },
-  "production": {
+  "productionOrig": {
     "use_env_variable": "JAWSDB_URL",
     "dialect": "mysql"
   }
