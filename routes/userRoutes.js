@@ -9,12 +9,6 @@ const db = require("../models");
 const Op = db.Sequelize.Op
 const ensureAuthenticated = require("./usersAuthHelper");
 
-// Gateway route for a user's page area
-// this route is NOT protected
-router.get("/index", (req, res) => {
-	if (req.user) res.redirect("/users/" + req.user.id);
-	else res.redirect("/users/login");
-});
 
 // User's personalized page route
 router.get("/:id", ensureAuthenticated, (req, res) => {
@@ -31,7 +25,7 @@ router.get("/:id", ensureAuthenticated, (req, res) => {
 });
 
 // Mark a recipe as favorite
-router.post("/favorite/:recipeId", ensureAuthenticated, function (req, res) {
+router.post("/favorite/:recipeId", function (req, res) {
 	console.log(`userid: ${req.user.id}, recipeid: ${req.params.recipeId}`);
 	db.UserProfile.findOrCreate({
 		where: {
@@ -40,22 +34,77 @@ router.post("/favorite/:recipeId", ensureAuthenticated, function (req, res) {
 		},
 		defaults: {
 			favorite: true,
-			posted: false
 		}
 	}).spread((userInfo, created) => {
-		console.log('OK');
 		if (created) {
 			req.flash("success_msg", "The recipe has been added to favorites.");
 		} else {
+			db.UserProfile.update({
+				favorite: true
+			}, {
+				where: {
+					UserId: req.user.id,
+					RecipeId: req.params.recipeId
+				},
+			}).then(userInfo => {
+				req.flash("success_msg", "The recipe has been marked as favorite.");
+				return;
+			}).catch(err => {
+				req.flash("error_msg", "Unable to mark the recipe as favorite.");
+				return;
+			});
 			req.flash("success_msg", "The recipe has been marked as favorite.");
 		}
-		res.json(userInfo);
+		console.log('favorite set ok');
+		return;
 	}).catch(err => {
 		console.log(err)
 		req.flash("error_msg", "Failed to add. User and/or recipe not found.");
-		res.json(null);
+		return;
 	});
 });
+
+// Mark a recipe as "posted" by the user
+// router.post("/posted/:recipeId", ensureAuthenticated, function (req, res) {
+router.post("/posted/:recipeId", function (req, res, next) {
+	if (!req.user) res.end("Unable to identify userId for recipe post");
+	console.log(`userid: ${req.user.id}, recipeid: ${req.params.recipeId}`);
+
+	db.UserProfile.findOrCreate({
+		where: {
+			UserId: req.user.id,
+			RecipeId: req.params.recipeId
+		},
+		defaults: {
+			posted: true,
+		}
+	}).spread((userInfo, created) => {
+		if (created) {
+			req.flash("success_msg", "The recipe has been posted.");
+			return;
+		} else {
+			db.UserProfile.update({
+				posted: true
+			}, {
+				where: {
+					UserId: req.user.id,
+					RecipeId: req.params.recipeId
+				},
+			}).then(userInfo => {
+				req.flash("success_msg", "The recipe has been marked as posted.");
+				return;
+			}).catch(err => {
+				req.flash("error_msg", "Unable to mark the recipe as posted.");
+				return;
+			});
+		}
+	}).catch(err => {
+		console.log(err)
+		req.flash("error_msg", "Failed to add. User and/or recipe not found.");
+		return;
+	});
+});
+
 
 /*
 ---------------------------------------------------------------------------
@@ -72,7 +121,7 @@ router.post("/favorite/:recipeId", ensureAuthenticated, function (req, res) {
 // * cbackFunc = callback function to call against the result
 //
 async function getUserData(userId, cbackFunc) {
-	const recommend = getRecipes(5);
+	const recommend = getRecommendedRecipes(5);
 	const posted = getAllRecipesByUser(userId);
 	const favorites = getAllUserFavorites(userId);
 	const userData = {
@@ -80,7 +129,7 @@ async function getUserData(userId, cbackFunc) {
 		posted: await posted,
 		favorites: await favorites
 	};
-	
+
 	cbackFunc(userData);
 }
 
@@ -120,7 +169,11 @@ function getAllRecipesByUser(userId) {
 		}).then(items => {
 			if (!items || items.length === 0) resolve(null);
 			db.Recipes.findAll({
-				[Op.in]: items.map(recipe => recipe.id)
+				where: {
+					id: {
+						[Op.in]: items.map(recipe => recipe.RecipeId)
+					}
+				}
 			}).then(recipes => {
 				// console.log(`Found all recipes by userId[${userId}] ${JSON.stringify(recipes)}`);
 				recipes.forEach(recipe => {
@@ -153,7 +206,11 @@ function getAllUserFavorites(userId) {
 		}).then(items => {
 			if (!items || items.length === 0) resolve(null);
 			db.Recipes.findAll({
-				[Op.in]: items.map(recipe => recipe.id)
+				where: {
+					id: {
+						[Op.in]: items.map(recipe => recipe.RecipeId)
+					}
+				}
 			}).then(recipes => {
 				recipes.forEach(recipe => {
 					fixRecipeImage(recipe);
@@ -166,7 +223,7 @@ function getAllUserFavorites(userId) {
 }
 
 //
-// Generic find recipes function
+// find random recipes
 //
 // PARAMS:
 // * num = the maximum number of recipes
@@ -188,16 +245,71 @@ function getRecipes(num = 5) {
 					fixRecipeImage(recipe);
 				});
 			}
-			
+
 			resolve(recipes);
 		}).catch(err => reject(err));
 	});
 }
 
+//
+// find top 5 recipes
+//
+// PARAMS:
+// * num = the maximum number of recipes
+// RETURN:
+// * Promise instance
+//
+//  NOTE: 
+//  SQL is super simple but quite difficult w/ Sequelize(ORM)
+//  to sort by the aggregated new field name
+//
+//  SELECT recipeid, sum(favorite) AS fav 
+//  FROM userprofiles 
+//  GROUP BY recipeid 
+//  ORDER BY fav DESC
+//  LIMIT 5
+//  ;
+//
+function getRecommendedRecipes(num = 5) {
+	console.log(`Finding ${num} recommended recipes`);
+
+	return new Promise((resolve, reject) => {
+		db.UserProfile.findAll({
+			attributes: ['RecipeId', [db.sequelize.fn('sum', db.sequelize.col('favorite')), 'fav']],
+			group: 'RecipeId',
+			// order: 'fav DESC',
+			limit: num,
+		})
+		.then(recipes => {
+			console.log(`Found ${recipes.length} recipe recomendations`);
+			if (!recipes || recipes.length === 0) {
+				recipes = null;
+			} else {
+				const recipeIds = recipes.sort((a, b) => b.fav - a.fav).map(c => c.RecipeId);
+				db.Recipes.findAll({
+					where: {
+						id: {
+							[Op.in]: recipeIds
+						}
+					}
+				})
+				.then(recipes => {
+					recipes.forEach(recipe => {
+						fixRecipeImage(recipe);
+					});
+					resolve(recipes);
+				})
+				.catch(err => reject(err));
+			}
+		})
+		.catch(err => reject(err));
+	});
+}
+
 function fixRecipeImage(recipe) {
-	recipe.imageSrc = (recipe.image)
-		? `data:image/jpeg;base64, ${recipe.image.toString("base64")}`
-		: recipe.imageURL;
+	recipe.imageSrc = (recipe.image) ?
+		`data:image/jpeg;base64, ${recipe.image.toString("base64")}` :
+		recipe.imageURL;
 	recipe.image = null;
 	recipe.imageURL = null;
 }

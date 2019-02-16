@@ -11,6 +11,7 @@ const instructions = $("#instructions");
 const img = $("#recipe-image");
 const postBtn = $("#postButton");
 const recipeList = $("#recipe-list");
+const mealType = $("#mealType");
 
 
 // The API object contains methods for each kind of request we'll make
@@ -76,16 +77,16 @@ var API = {
 			type: "GET"
 		});
 	},
-	saveIngredient: function (recipeId, ingredient) {
+	saveIngredient: function (recipeId, productId, ingredient) {
 		return $.ajax({
 			headers: {
 				"Content-Type": "application/json"
 			},
-			url: "api/recipes/" + recipeId + "/ingredients",
+			url: `api/ingredient/${recipeId}/${productId}`,
 			type: "POST",
 			data: JSON.stringify(ingredient)
 		});
-	}
+	},
 	// updateRating: function(rating){
 	// 	return $.ajax({
 	// 		url: "/api/recipes/" + id,
@@ -93,7 +94,18 @@ var API = {
 	// 		data: rating,
 	// 	})
 	// }
-	// }
+	// },
+	addUserRecipe: function(recipeId) {
+		return $.ajax({
+			url: "/users/posted/" + recipeId,
+			type: "POST",
+			data: JSON.stringify(recipeId)
+		}).catch(err => {
+			if (/^4\d+/.test(err.status)) {
+				console.log("Failed to update UserProfile for recipe post");
+			}
+		});
+	},
 };
 
 
@@ -134,6 +146,7 @@ var handleFormSubmit = function (event) {
 	var recipe = {
 		name: recipeName.val().trim(),
 		description: recipeDescription.val().trim(),
+		mealType: mealType.val(),
 		gluten_free: glutenFree.is(":checked", function () { glutenFree.prop("checked", true); }),
 		dairy_free: dairyFree.is(":checked", function () { glutenFree.prop("checked", true); }),
 		vegetarian: vegetarian.is(":checked", function () { glutenFree.prop("checked", true); }),
@@ -174,28 +187,30 @@ var handleFormSubmit = function (event) {
 	}
 
 	API.saveRecipe(recipe).then(function (resp) {
-		if (img[0]) { // IFF there's an image input, THEN store in database
+		const imgFile = $("#recipe-image").val().trim();
+		if (imgFile) { // IFF there's an image input, THEN store in database
+			console.log("Found the image file: " + imgFile);
 			API.setRecipeImage(resp, img[0].files[0]);
 		}
-
+		
 		console.log("Got recipe ID: " + resp);
 		for (let j = 0; j < numIngredients; j++) {
 			API.saveIndvProduct(products[j], function(productId) {
 				if (productId) {
-					console.log(`Product ID = ${productId}`);
-					ingredients[j].RecipeId = resp;
-					ingredients[j].ProductId = productId;
-					API.saveIngredient(resp, ingredients[j]);
+					console.log("INGREDIENTS => " + JSON.stringify(ingredients[j]));
+					API.saveIngredient(resp, productId, ingredients[j]);
 				}
 			});
-			console.log(`Product ${j}`);
 		}
-
-		// TO-DO
-		// 1. Protect this recipe POST route, enable only when a user logged in
-		// 2. set posted=true in UserProfile with this recipe-id and user-id 
-
-	});
+		
+		// Keep track of the recipe posted by the user
+		API.addUserRecipe(resp)
+			.then(user => {
+				console.log(JSON.stringify(user));
+				// console.log(`Recipe ${resp} saved in the user profile.`)
+			})
+			.catch(err => console.log(err));
+	}).catch(error => { console.log("ERROR: Recipe insertion", error); });
 
 	recipeName.val("");
 	recipeDescription.val("");
@@ -212,7 +227,6 @@ var handleDeleteBtnClick = function () {
 		refreshRecipes();
 	});
 };
-
 
 
 // Add event listeners to the submit and delete buttons

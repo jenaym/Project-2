@@ -5,16 +5,39 @@
         <div class="card-body">
           <h5 class="card-title">Recipe</h5>
           <p>
-            <strong>ID</strong>: {{recipe.id}}</p>
+            <strong>Recipe Name:</strong>: {{recipe.name}}</p>
           <p>
-          <p>
-            <img src="{{recipe.imageSrc}}" width="200" height="auto" alt="image">
-          </p>
-          <p>
-            <strong>Recipe Name</strong>: {{recipe.name}}</p>
+           <div class="row">
+             <div class="column-5" style="margin: 20px">
+              <p>
+                <img src="{{recipe.imageSrc}}" width="200" height="auto" alt="image">
+              </p>
+            </div>
+            <div class="column-7" style="margin: 20px">
+              <p>Preparation time: {{recipe.prep_time}}</p>
+              <p>Cook time: {{recipe.cook_time}}</p>
+              {{#if recipe.gluten_free}}<p>Gluten free</p>{{/if}}
+              {{#if recipe.dairy_free}}<p>Dairy free</p>{{/if}}
+              {{#if recipe.vegetarian}}<p>Vegetarian</p>{{/if}}
+              {{#if recipe.vegan}}<p>Vegan</p>{{/if}}
+            </div>
+          </div> 
+          <p><strong>Rating: </strong><strong style="color: red">{{recipe.rating}}</strong></p>
           <p>
             <strong>Description:</strong> {{recipe.description}}</p>
-            <a href="/">← Back To Home</a>
+          <p><strong>Ingredients:</strong></p>
+          <ul>
+            {{#each products}}
+            <li>
+              <strong>{{this.name}}</strong> amount: <strong>{{this.Ingredients.amount}} {{this.Ingredients.measurement}}</strong> calories per unit: <strong>{{this.calories}}</strong>
+            </li>
+            {{/each}}
+          </ul> 
+          
+          <p>
+            <strong>Total Calories: </strong>{{totalCalories}}
+          </p>
+          <a href="/">← Back To Home</a>
         </div>
       </div>
 

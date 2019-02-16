@@ -1,56 +1,23 @@
+<div id="websiteDescription">Share and discover all your favorite recipes!</div>
 
-  <div id="websiteDescription">Share and discover all your favorite recipes!</div>
-
-  <div id="breaker"></div>
-
-
-  <div id="favoriteRecipes">
-    {{!-- insert handlebars for each loop here --}}
-    {{!-- instead of favRecipes.js --}}
-    {{#each recipes}}
-
-    <div class="favs" id={{this.id}} >
-
-      {{this.name}}
-
-          </div>
-          <div id="4" class="col-6 favsColumn">
-
-          </div>
-        </div>
-        <div class="row">
-          <div id="5" class="col-6 favsColumn">
-
-          </div>
-          <div id="6" class="col-6 favsColumn">
-
-          </div>
-        </div>
-        <div class="row">
-          <div id="7" class="col-6 favsColumn">
-
-          </div>
-          <div id="8" class="col-6 favsColumn">
-
-          </div>
-        </div>
-        <div class="row">
-          <div id="9" class="col-6 favsColumn">
-
-          </div>
-          <div id="10" class="col-6 favsColumn">
-
-          </div>
-        </div>
+<div id="breaker"></div>
 
 
-      </div>
-    </div>
+<div id="favoriteRecipes">
+  {{!-- insert handlebars for each loop here --}}
+  {{!-- instead of favRecipes.js --}}
+  {{#each recipes}}
 
-    {{/each}}
+  <div class="favs" id={{this.id}}>
+
+    {{this.name}}
   </div>
-  {{!-- </div> --}}
-  
+
+
+  {{/each}}
+</div>
+{{!-- </div> --}}
+
 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js">
 </script>
