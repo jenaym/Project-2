@@ -17,4 +17,12 @@ favButton.on("click", function (event) {
 		}
 	);
 
+	$.ajax("/users/favorite/" + id, {
+        type: "PUT",
+	}).then(
+		function (recipe) {
+
+			console.log("whole recipe updated ", recipe);
+		}
+	);
 });
