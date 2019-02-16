@@ -1,3 +1,4 @@
+// Recipe Advanced Search
 
 $(document).ready(function() {
 	// Recipe Search on Navbar
