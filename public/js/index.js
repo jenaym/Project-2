@@ -11,6 +11,7 @@ const instructions = $("#instructions");
 const img = $("#recipe-image");
 const postBtn = $("#postButton");
 const recipeList = $("#recipe-list");
+const mealType = $("#mealType");
 
 
 // The API object contains methods for each kind of request we'll make
@@ -145,6 +146,7 @@ var handleFormSubmit = function (event) {
 	var recipe = {
 		name: recipeName.val().trim(),
 		description: recipeDescription.val().trim(),
+		mealType: mealType.val(),
 		gluten_free: glutenFree.is(":checked", function () { glutenFree.prop("checked", true); }),
 		dairy_free: dairyFree.is(":checked", function () { glutenFree.prop("checked", true); }),
 		vegetarian: vegetarian.is(":checked", function () { glutenFree.prop("checked", true); }),

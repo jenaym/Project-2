@@ -8,7 +8,6 @@
                     </div>
                     <p>
                         <form id="inputField" class="input">
-                            <!-- RECIPE (inputid = foodName) -->
                             <div class="form-group">
                                 <label for="mealType">Select Meal Type:</label>
                                 <select class="form-control" id="mealType">
@@ -23,34 +22,8 @@
                                 <input type="proteinType" class="form-control" id="proteinType" placeholder="Chicken">
                             </div>
                             <div class="form-group">
-                                <label for="veggieType">Select Preferred Vegetables:</label>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="veggieRadios" id="carrots" value="carrots">
-                                    <label class="form-check-label" for="carrots">
-                                        carrots
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="veggieRadios" id="greenBeans"
-                                        value="greenBeans">
-                                    <label class="form-check-label" for="greenBeans">
-                                        Green Beans
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="veggieRadios" id="broccoli"
-                                        value="broccoli">
-                                    <label class="form-check-label" for="broccoli">
-                                        Broccoli
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="veggieRadios" id="greenBeans"
-                                        value="greenBeans">
-                                    <label class="form-check-label" for="greenBeans">
-                                        Green Beans
-                                    </label>
-                                </div>
+                                <label for="veggieType">Enter Preferred Protein Type</label>
+                                <input type="veggieType" class="form-control" id="veggieType" placeholder="Green Beans">
                             </div>
                             <div class="form-group">
                                 <label for="dietaryRestrictions">Select Dietary Restrictions:</label>
@@ -94,6 +67,25 @@
                             <button type="submit" class="searchRecipe">Search</button>
                         </form>
                     </p>
+                    <div id="resultsTable">
+                        {{#if recipes.searched}}
+                        <h3>Search Results</h3>
+                        <div class="card-columns">
+                            {{#each recipes.searched}}
+                            <div class="card mt-2">
+                                <img src="{{this.imageSrc}}" alt="recipe image unavailable" class="card-img-top img-thumbnail rounded">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{this.name}}</h5>
+                                    <p class="card-text">
+                                        <a href="{{this.description}}">{{this.description}}</a>
+                                    </p>
+                                </div>
+                            </div>
+                            {{/each}}
+                        </div>
+                        {{else}}
+                        <h3>No matches found. Please refine your search!</h3>
+                    </div>
                 </div>
             </div>
         </div>
