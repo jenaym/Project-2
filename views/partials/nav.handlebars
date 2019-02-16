@@ -30,7 +30,9 @@
                 </button>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
                   <a class="dropdown-item" href="/search">Search Recipes</a>
+                  {{#if user}}
                   <a class="dropdown-item" href="/post">Post New Recipes</a>
+                  {{/if}}
                   <div class="dropdown-divider"></div>
                   {{#if user}}
                     <a class="dropdown-item" href="/users/logout">Logout <i class="fa fa-user-circle-o" aria-hidden="true"></i> <i class="fa fa-sign-out" aria-hidden="true"></i></a>

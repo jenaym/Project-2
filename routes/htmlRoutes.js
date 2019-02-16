@@ -4,7 +4,12 @@ const ensureAuthenticated = require("./usersAuthHelper");
 module.exports = function (app) {
 	// Load index page
 	app.get("/", function (req, res) {
-		db.Recipes.findAll({}).then(function (recipes) {
+		db.Recipes.findAll({
+			order: [
+				["rating", "DESC"]
+			],
+			limit: 5
+		}).then(function (recipes) {
 			console.log(JSON.stringify(recipes));
 			res.status(200).render("index", {
 				msg: "Welcome!!",
@@ -13,25 +18,36 @@ module.exports = function (app) {
 		});
 	});
 
+
 	// Load example page and pass in an example by id
 	app.get("/recipes/:id", function (req, res) {
-		db.Recipes.findOne({
-			where: {
-				id: req.params.id
+		db.Recipes.findByPk(req.params.id).then(function (recipe) {
+			if (recipe === null) {
+				res.status(404).send("Not Found");
 			}
-		}).then(function (recipe) {
-			if (recipe) {
-				recipe.imageSrc = (recipe.image)
-					? `data:image/jpeg;base64, ${recipe.image.toString("base64")}`
-					: recipe.imageURL;
-				recipe.image = null;
-				recipe.imageURL = null;
-				res.render("recipe", {
-					recipe: recipe
-				});
-			} else {
-				res.render("404");
-			}
+
+			// Sequelize provides getProducts() function, when we build associations 
+			recipe.getProducts().then(function (products) {
+				if (recipe) {
+					recipe.imageSrc = (recipe.image)
+						? `data:image/jpeg;base64, ${recipe.image.toString("base64")}`
+						: recipe.imageURL;
+					recipe.image = null;
+					recipe.imageURL = null;
+					// Total Calories
+					var total = 0;
+					products.forEach(product => {
+					total += product.calories * product.Ingredients.amount;
+					});
+					res.render("recipe", {
+						recipe: recipe,
+						products: products,
+						totalCalories: total
+					});
+				} else {
+					res.render("404");
+				}
+			});
 		});
 	});
 
@@ -43,6 +59,10 @@ module.exports = function (app) {
 	// Load Advanced Search Page
 	app.get("/search", function (req, res) {
 		res.render("search");
+	});
+
+	app.post("/search", function (req, res) {
+		res.render("search", req.body);
 	});
 
 	// Render 404 page for any unmatched routes

@@ -145,4 +145,13 @@ module.exports = function (app) {
 			});
 		});
 	});
+
+	// Searching Recipes
+	app.get("/api/recipes", function (req, res) { 
+		db.Recipes.findAll({
+			where: req.body
+		}).then(function (recipes) {
+			res.json(recipes);
+		});
+	});
 };

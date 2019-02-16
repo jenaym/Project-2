@@ -313,13 +313,13 @@ function getRecommendedRecipes(num = 5) {
 	});
 }
 
-			function fixRecipeImage(recipe) {
-				recipe.imageSrc = (recipe.image) ?
-					`data:image/jpeg;base64, ${recipe.image.toString("base64")}` :
-					recipe.imageURL;
-				recipe.image = null;
-				recipe.imageURL = null;
-			}
+function fixRecipeImage(recipe) {
+	recipe.imageSrc = (recipe.image) ?
+		`data:image/jpeg;base64, ${recipe.image.toString("base64")}` :
+		recipe.imageURL;
+	recipe.image = null;
+	recipe.imageURL = null;
+}
 
-			// Export the router
-			module.exports = router;
+// Export the router
+module.exports = router;
