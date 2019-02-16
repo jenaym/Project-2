@@ -1,7 +1,9 @@
 var db = require("../models");
-const ensureAuthenticated = require("./usersAuthHelper");
 var multiparty = require("multiparty");
 var fs = require("fs");
+const Op = db.Sequelize.Op
+const ensureAuthenticated = require("./usersAuthHelper");
+const fixRecipeImage = require("./recipeImage");
 
 module.exports = function (app) {
 	// Get all Recipes
@@ -27,6 +29,8 @@ module.exports = function (app) {
 					products: products
 				};
 
+				// TODO: Fix image vs imageURL as done in html route
+				dbRecipe.image = dbRecipe.image.toString("base64");
 				res.json(response);
 			});
 		});
@@ -145,11 +149,57 @@ module.exports = function (app) {
 	});
 
 	// Searching Recipes
-	app.get("/api/recipes", function (req, res) { 
+	app.get("/api/recipes", function (req, res) {
 		db.Recipes.findAll({
 			where: req.body
 		}).then(function (recipes) {
 			res.json(recipes);
 		});
 	});
+
+	// Search recipe GET route w/ parameters
+	// will render a page for the search result 
+	app.get("/api/search/:recipes", function (req, res) {
+		const searchCondition = {};  // for db.Recipes
+		const productCondition = {}; // for db.Products
+		const _params = req.params.recipes.split('&').map(kv => kv.split('='));
+		const params = {};
+		
+		// params = Object.fromEntries(params);	
+		// TypeError: Object.fromEntries is not a function --> not available in Node?
+		_params.map(kv => params[kv[0]] = kv[1]);
+		
+		console.log("PARAMS", JSON.stringify(params));
+		
+		['mealType', 'gluten_free', 'dairy_free', 'vegetarian', 'vegan'].forEach(item => {
+			if (params[item] === 'true') params[item] = true;
+			if (params[item] === 'false') params[item] = false;
+			if (item in params) searchCondition[item]= params[item];
+		});
+		
+		if ("proteinType" in params) {
+			searchCondition["name"] = { [Op.like]: `%${params["proteinType"]}%` };
+			productCondition["name"] = { [Op.like]: `%${params["proteinType"]}%` };
+		}
+		if ("veggieType" in params) {
+			searchCondition["name"] = { [Op.like]: `%${params["veggieType"]}%` };
+			productCondition["name"] = { [Op.like]: `%${params["veggieType"]}%` };
+		}
+		
+		db.Recipes.findAll({
+			include: [{
+				model: db.Products,
+				where: productCondition,
+				required: false
+			}],
+			where: searchCondition
+		})
+		.then(result => {
+			// console.log(`Found ${result.count} recipe(s)`);
+			// res.json(result);
+			res.render("searchResults", {
+				recipes: result.map(recipe => fixRecipeImage(recipe))
+			});
+		}).catch(err => console.log("Recipe search error", err));
+	})
 };
