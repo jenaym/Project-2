@@ -282,34 +282,34 @@ function getRecommendedRecipes(num = 5) {
 
 	return new Promise((resolve, reject) => {
 		db.UserProfile.findAll({
-			attributes: ['RecipeId', [db.sequelize.fn('sum', db.sequelize.col('favorite')), 'fav']],
-			group: 'RecipeId',
-			// order: 'fav DESC',
-			limit: num,
-		})
-		.then(recipes => {
-			console.log(`Found ${recipes.length} recipe recomendations`);
-			if (!recipes || recipes.length === 0) {
-				recipes = null;
-			} else {
-				const recipeIds = recipes.sort((a, b) => b.fav - a.fav).map(c => c.RecipeId);
-				db.Recipes.findAll({
-					where: {
-						id: {
-							[Op.in]: recipeIds
-						}
-					}
-				})
-				.then(recipes => {
-					recipes.forEach(recipe => {
-						fixRecipeImage(recipe);
-					});
-					resolve(recipes);
-				})
-				.catch(err => reject(err));
-			}
-		})
-		.catch(err => reject(err));
+				attributes: ['RecipeId', [db.sequelize.fn('sum', db.sequelize.col('favorite')), 'fav']],
+				group: 'RecipeId',
+				// order: 'fav DESC',
+				limit: num,
+			})
+			.then(recipes => {
+				console.log(`Found ${recipes.length} recipe recomendations`);
+				if (!recipes || recipes.length === 0) {
+					recipes = null;
+				} else {
+					const recipeIds = recipes.sort((a, b) => b.fav - a.fav).map(c => c.RecipeId);
+					db.Recipes.findAll({
+							where: {
+								id: {
+									[Op.in]: recipeIds
+								}
+							}
+						})
+						.then(recipes => {
+							recipes.forEach(recipe => {
+								fixRecipeImage(recipe);
+							});
+							resolve(recipes);
+						})
+						.catch(err => reject(err));
+				}
+			})
+			.catch(err => reject(err));
 	});
 }
 
