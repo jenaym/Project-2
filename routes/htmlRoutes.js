@@ -9,7 +9,7 @@ module.exports = function (app) {
 			order: [
 				["rating", "DESC"]
 			],
-			limit: 5
+			limit: 6
 		}).then(function (recipes) {
 			console.log(JSON.stringify(recipes));
 			res.status(200).render("index", {
