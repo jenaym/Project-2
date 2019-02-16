@@ -1,5 +1,6 @@
 var db = require("../models");
 const ensureAuthenticated = require("./usersAuthHelper");
+const fixRecipeImage = require("./recipeImage");
 
 module.exports = function (app) {
 	// Load index page
@@ -8,12 +9,12 @@ module.exports = function (app) {
 			order: [
 				["rating", "DESC"]
 			],
-			limit: 5
+			limit: 6
 		}).then(function (recipes) {
 			console.log(JSON.stringify(recipes));
 			res.status(200).render("index", {
 				msg: "Welcome!!",
-				recipes: recipes
+				recipes: recipes.map(recipe => fixRecipeImage(recipe))
 			});
 		});
 	});
@@ -59,6 +60,10 @@ module.exports = function (app) {
 	// Load Advanced Search Page
 	app.get("/search", function (req, res) {
 		res.render("search");
+	});
+
+	app.post("/search", function (req, res) {
+		res.render("search", req.body);
 	});
 
 	// Render 404 page for any unmatched routes

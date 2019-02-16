@@ -8,20 +8,37 @@
             <strong>Recipe Name:</strong>: {{recipe.name}}</p>
           <p>
           <p>
-            <img src="{{recipe.imageSrc}}" width="200" height="auto" alt="image">
-          </p>
-          <p>
-            <strong>Description:</strong> {{recipe.description}}</p>
-          {{#each products}}
+            <strong>Description:</strong> {{recipe.description}}
+          </p>  
+           <div class="row">
+             <div class="column-5" style="margin: 20px">
+              <p>
+                <img src="{{recipe.imageSrc}}" width="200" height="auto" alt="image">
+              </p>
+            </div>
+            <div class="column-7" style="margin: 20px">
+              <p>Preparation time: {{recipe.prep_time}}</p>
+              <p>Cook time: {{recipe.cook_time}}</p>
+              {{#if recipe.gluten_free}}<p>Gluten free</p>{{/if}}
+              {{#if recipe.dairy_free}}<p>Dairy free</p>{{/if}}
+              {{#if recipe.vegetarian}}<p>Vegetarian</p>{{/if}}
+              {{#if recipe.vegan}}<p>Vegan</p>{{/if}}
+              <p>Total Calories: {{totalCalories}}</p>
+            </div>
+          </div> 
+          <p><strong>Rating: </strong><strong style="color: red">{{recipe.rating}}</strong></p>
+            <p><strong>Ingredients:</strong></p>
+
           <ul>
+            {{#each products}}
             <li>
               <strong>{{this.name}}</strong> amount: <strong>{{this.Ingredients.amount}} {{this.Ingredients.measurement}}</strong> calories per unit: <strong>{{this.calories}}</strong>
             </li>
+            {{/each}}
           </ul> 
-          {{/each}}
+
           <p>
-            <strong>Total Calories: </strong>{{totalCalories}}
-          </p>
+            <strong>Instructions:</strong> {{recipe.instructions}}</p>
           <a href="/">← Back To Home</a>
         </div>
       </div>

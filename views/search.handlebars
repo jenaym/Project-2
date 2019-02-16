@@ -8,10 +8,10 @@
                     </div>
                     <p>
                         <form id="inputField" class="input">
-                            <!-- RECIPE (inputid = foodName) -->
                             <div class="form-group">
                                 <label for="mealType">Select Meal Type:</label>
                                 <select class="form-control" id="mealType">
+                                    <option value="none"></option>
                                     <option value="breakfast">Breakfast</option>
                                     <option value="lunch">Lunch</option>
                                     <option value="dinner">Dinner</option>
@@ -20,67 +20,46 @@
                             </div>
                             <div class="form-group">
                                 <label for="proteinType">Enter Preferred Protein Type</label>
-                                <input type="proteinType" class="form-control" id="proteinType" placeholder="Chicken">
+                                <input type="proteinType" class="form-control" id="proteinType" placeholder="e.g. Chicken, fish, egg">
                             </div>
                             <div class="form-group">
-                                <label for="veggieType">Select Preferred Vegetables:</label>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="veggieRadios" id="carrots" value="carrots">
-                                    <label class="form-check-label" for="carrots">
-                                        carrots
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="veggieRadios" id="greenBeans"
-                                        value="greenBeans">
-                                    <label class="form-check-label" for="greenBeans">
-                                        Green Beans
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="veggieRadios" id="broccoli"
-                                        value="broccoli">
-                                    <label class="form-check-label" for="broccoli">
-                                        Broccoli
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="veggieRadios" id="greenBeans"
-                                        value="greenBeans">
-                                    <label class="form-check-label" for="greenBeans">
-                                        Green Beans
-                                    </label>
-                                </div>
+                                <label for="veggieType">Enter Preferred Veggie Type</label>
+                                <input type="veggieType" class="form-control" id="veggieType" placeholder="e.g. Green Beans, Eggplants, Carrot">
                             </div>
                             <div class="form-group">
                                 <label for="dietaryRestrictions">Select Dietary Restrictions:</label>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="dietaryRadios" id="glutenFree"
-                                        value="glutenFree">
-                                    <label class="form-check-label" for="glutenFree">
-                                        Gluten Free
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="dietaryRadios" id="vegetarian"
-                                        value="vegetarian">
-                                    <label class="form-check-label" for="vegetarian">
-                                        Vegetarian
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="dietaryRadios" id="vegan" value="vegan">
-                                    <label class="form-check-label" for="vegan">
-                                        Vegan
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="dietaryRadios" id="dairyFree"
-                                        value="dairyFree">
-                                    <label class="form-check-label" for="dairyFree">
-                                        Dairy Free
-                                    </label>
-                                </div>
+                                    <div class="form-group">
+                                        <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="glutenFree" value="false">
+                                        <label class="form-check-label" for="glutenFree">
+                                            Gluten Free
+                                        </label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="dairyFree" value="false">
+                                        <label class="form-check-label" for="dairyFree">
+                                            Dairy Free
+                                        </label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="vegetarian" value="false">
+                                        <label class="form-check-label" for="vegetarian">
+                                            Vegetarian
+                                        </label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="vegan" value="false">
+                                        <label class="form-check-label" for="vegan">
+                                            Vegan
+                                        </label>
+                                        </div>
+                                    </div>
                             </div>
                             <div class="form-group">
                                 <label for="calories">Preferred Calorie Range:</label>

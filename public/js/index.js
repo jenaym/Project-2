@@ -11,6 +11,7 @@ const instructions = $("#instructions");
 const img = $("#recipe-image");
 const postBtn = $("#postButton");
 const recipeList = $("#recipe-list");
+const mealType = $("#mealType");
 
 
 // The API object contains methods for each kind of request we'll make
@@ -145,10 +146,11 @@ var handleFormSubmit = function (event) {
 	var recipe = {
 		name: recipeName.val().trim(),
 		description: recipeDescription.val().trim(),
+		mealType: mealType.val(),
 		gluten_free: glutenFree.is(":checked", function () { glutenFree.prop("checked", true); }),
-		dairy_free: dairyFree.is(":checked", function () { glutenFree.prop("checked", true); }),
-		vegetarian: vegetarian.is(":checked", function () { glutenFree.prop("checked", true); }),
-		vegan: vegan.is(":checked", function () { glutenFree.prop("checked", true); }),
+		dairy_free: dairyFree.is(":checked", function () { dairyFree.prop("checked", true); }),
+		vegetarian: vegetarian.is(":checked", function () { vegetarian.prop("checked", true); }),
+		vegan: vegan.is(":checked", function () { vegan.prop("checked", true); }),
 		prep_time: prepTime.val().trim(),
 		cook_time: cookTime.val().trim(),
 		instructions: instructions.val().trim(),
@@ -164,11 +166,12 @@ var handleFormSubmit = function (event) {
 	const numIngredients = $(".ingrItem").length;
 	console.log("INGRE ITEMS = " + numIngredients);
 
-	// Get the inputs and store into ingredients and products arrays
+	// Get the inputs and store into ingredients and products arrays 
 	for (let j = 1; j <= numIngredients; j++) {
 		const ingrName = $(`#ingrID-${j}`).val().trim();
 		const qty = $(`#qtyID-${j}`).val().trim();
 		const unit = $(`#unitID-${j} option:selected`).text();
+		const cal = $(`#calID-${j}`).val().trim();
 
 		ingredients.push({
 			amount: qty,
@@ -176,6 +179,7 @@ var handleFormSubmit = function (event) {
 		});
 		products.push({
 			name: ingrName,
+			calories: cal
 		});
 	}
 

@@ -1,6 +1,6 @@
 $(document).ready(function () {
     var maxIngredients = 100;
-    var x = 1; //Initial ingredient counter
+    var x = 0; //Initial ingredient counter
     var ingredientList = $(".allIngredients");
 
     $(".addIngredient").on("click", function (event) {
@@ -29,7 +29,7 @@ function makeNewIngredient(counter) {
     newNameInput.addClass("form-control");
 
     let newQty = $("<div>");
-    newQty.addClass("form-group").addClass("col-md-3");
+    newQty.addClass("form-group").addClass("col-md-2");
     newQty.append("<label>Quantity</label>");
 
     let newQtyInput = $("<input>");
@@ -37,8 +37,9 @@ function makeNewIngredient(counter) {
     newQtyInput.addClass("form-control");
 
     let newUnit = $("<div>");
-    newUnit.addClass("form-group").addClass("col-md-3");
-    newUnit.append("<label>Unit</label>");
+    newUnit.addClass("form-group").addClass("col-md-2");
+    newUnit.append('<label style="display: block">Unit</label>');
+    
 
     let newUnitInput = $('<select>');
     newUnitInput.addClass("unit");
@@ -50,17 +51,27 @@ function makeNewIngredient(counter) {
     newUnitInput.append('<option value="pint">pint</option>');
     newUnitInput.append('<option value="quart">quart</option>');
     newUnitInput.append('<option value="pound">pound</option>');
+    
+    let newCal = $("<div>");
+    newCal.addClass("form-group").addClass("col-md-2");
+    newCal.append("<label>Calories per unit</label>");
+
+    let newCalInput = $("<input>");
+    newCalInput.attr("type", "text");
+    newCalInput.addClass("form-control");
 
     newIngredient.addClass("form-row").addClass("ingrItem");
 
     newNameInput.attr("id", `ingrID-${counter}`);
     newQtyInput.attr("id", `qtyID-${counter}`);
     newUnitInput.attr("id", `unitID-${counter}`);
+    newCalInput.attr("id", `calID-${counter}`);
     newUnitInput.wrapAll('<div>');
 
     newIngredient.append(newName.append(newNameInput));
     newIngredient.append(newQty.append(newQtyInput));
     newIngredient.append(newUnit.append(newUnitInput));
+    newIngredient.append(newCal.append(newCalInput));
 
     return newIngredient;
 }
