@@ -33,7 +33,7 @@ router.get("/:id", ensureAuthenticated, (req, res) => {
 });
 
 // Mark a recipe as favorite
-router.post("/favorite/:recipeId", function (req, res) {
+router.put("/favorite/:recipeId", function (req, res) {
 	console.log(`userid: ${req.user.id}, recipeid: ${req.params.recipeId}`);
 	db.UserProfile.findOrCreate({
 		where: {
@@ -56,18 +56,22 @@ router.post("/favorite/:recipeId", function (req, res) {
 				},
 			}).then(userInfo => {
 				req.flash("success_msg", "The recipe has been marked as favorite.");
+				res.json(userInfo);
 				return;
 			}).catch(err => {
 				req.flash("error_msg", "Unable to mark the recipe as favorite.");
+				res.json(err);
 				return;
 			});
 			req.flash("success_msg", "The recipe has been marked as favorite.");
+			res.json(userInfo);
 		}
 		console.log('favorite set ok');
 		return;
 	}).catch(err => {
 		console.log(err)
 		req.flash("error_msg", "Failed to add. User and/or recipe not found.");
+		res.json(err);
 		return;
 	});
 });

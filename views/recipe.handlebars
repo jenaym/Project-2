@@ -39,7 +39,11 @@
 
           <p>
             <strong>Instructions:</strong> {{recipe.instructions}}</p>
+          {{#if user}}
+          <a href="/users/{{user.id}}" + user.id>← Back To Home</a>
+          {{else}}
           <a href="/">← Back To Home</a>
+          {{/if}}
         </div>
       </div>
 
