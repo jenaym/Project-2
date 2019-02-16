@@ -11,7 +11,7 @@ var db = {};
 require("dotenv").config();
 
 // * * * * * * * * *
-// *** Discabled for heroku **
+// *** This section is now disabled for heroku **
 // CREATE "recipes_db" IF NOT EXISTS
 // const mysql = require("mysql2");
 // const connection = mysql.createConnection({
