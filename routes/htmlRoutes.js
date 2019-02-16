@@ -25,6 +25,7 @@ module.exports = function (app) {
 		db.Recipes.findByPk(req.params.id).then(function (recipe) {
 			if (recipe === null) {
 				res.status(404).send("Not Found");
+				return;
 			}
 
 			// Sequelize provides getProducts() function, when we build associations 
@@ -38,7 +39,7 @@ module.exports = function (app) {
 					// Total Calories
 					var total = 0;
 					products.forEach(product => {
-					total += product.calories * product.Ingredients.amount;
+						total += product.calories * product.Ingredients.amount;
 					});
 					res.render("recipe", {
 						recipe: recipe,

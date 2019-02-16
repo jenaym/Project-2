@@ -6,6 +6,7 @@
   <h3>Your Favorite Recipes</h3>
   <div class="card-columns">
    {{#each recipes.favorites}}
+    <div class="favs" id={{this.id}}>
       <div class="card mt-2">
         <img src="{{this.imageSrc}}" alt="recipe image unavailable" class="card-img-top img-thumbnail rounded">
         <div class="card-body">
@@ -15,6 +16,7 @@
           </p>
         </div>
       </div>
+    </div>
    {{/each}}
   </div>
 {{else}}
@@ -26,6 +28,7 @@
   <h3>Recommended Recipes</h3>
   <div class="card-columns">
    {{#each recipes.recommend}}
+    <div class="favs" id={{this.id}}>
       <div class="card mt-2">
         <img src="{{this.imageSrc}}" alt="recipe image unavailable" class="card-img-top img-thumbnail rounded">
         <div class="card-body">
@@ -35,6 +38,7 @@
           </p>
         </div>
       </div>
+    </div>
    {{/each}}
   </div>
 {{!-- {{else}} --}}
@@ -46,13 +50,15 @@
   <h3>Recipes You Have Posted</h3>
   <div class="card-columns">
     {{#each recipes.posted}}
-      <div class="card mt-2">
-        <img class="card-img-top" src="{{this.imageSrc}}" alt="recipe image unavailable">
-        <div class="card-body">
-          <h5 class="card-title">{{this.name}}</h5>
-          <p class="card-text">
-            <a href="{{this.description}}">{{this.description}}</a>
-          </p>
+      <div class="favs" id={{this.id}}>
+        <div class="card mt-2">
+          <img class="card-img-top" src="{{this.imageSrc}}" alt="recipe image unavailable">
+          <div class="card-body">
+            <h5 class="card-title">{{this.name}}</h5>
+            <p class="card-text">
+              <a href="{{this.description}}">{{this.description}}</a>
+            </p>
+          </div>
         </div>
       </div>
     {{/each}}
@@ -60,3 +66,5 @@
 {{else}}
   <h4>You haven't posted any recipe</h4>
 {{/if}}
+
+<script src="/js/recipePage.js"></script>
