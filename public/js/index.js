@@ -166,11 +166,12 @@ var handleFormSubmit = function (event) {
 	const numIngredients = $(".ingrItem").length;
 	console.log("INGRE ITEMS = " + numIngredients);
 
-	// Get the inputs and store into ingredients and products arrays
+	// Get the inputs and store into ingredients and products arrays 
 	for (let j = 1; j <= numIngredients; j++) {
 		const ingrName = $(`#ingrID-${j}`).val().trim();
 		const qty = $(`#qtyID-${j}`).val().trim();
 		const unit = $(`#unitID-${j} option:selected`).text();
+		const cal = $(`#calID-${j}`).val().trim();
 
 		ingredients.push({
 			amount: qty,
@@ -178,6 +179,7 @@ var handleFormSubmit = function (event) {
 		});
 		products.push({
 			name: ingrName,
+			calories: cal
 		});
 	}
 
