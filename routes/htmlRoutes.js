@@ -1,5 +1,6 @@
 var db = require("../models");
 const ensureAuthenticated = require("./usersAuthHelper");
+const fixRecipeImage = require("./recipeImage");
 
 module.exports = function (app) {
 	// Load index page
@@ -13,7 +14,7 @@ module.exports = function (app) {
 			console.log(JSON.stringify(recipes));
 			res.status(200).render("index", {
 				msg: "Welcome!!",
-				recipes: recipes
+				recipes: recipes.map(recipe => fixRecipeImage(recipe))
 			});
 		});
 	});

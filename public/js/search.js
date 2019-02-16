@@ -1,8 +1,16 @@
 // Recipe Advanced Search
 
-const searchBtn = $(".searchRecipe");
+//
+// Generic search on Navbar
+//
+$("#recipeSearch").on("click", function(event) {
+	event.preventDefault();
+
+	searchRecipes({ proteinType: $("#searchTerm").val().trim() });
+});
 
 // Search button click event 
+const searchBtn = $(".searchRecipe");
 searchBtn.on("click", function (event) {
 	event.preventDefault();
 
@@ -41,15 +49,22 @@ searchBtn.on("click", function (event) {
 		searchParam.veggieType = veggieType.val().trim();
 	}
 
+	searchRecipes(searchParam);
+});
+
+//
+// Search Recipes in the database
+//
+function searchRecipes(searchParam) {
 	const url = "/api/search/" + $.param(searchParam);
+	
 	search(searchParam).then(function (data) {
 		console.log("Recipe search completed successfully");
 		window.location.href = url;
 	}).catch(function(error) {
 		console.log("Recipe search failed", error);
 	});
-
-});
+}
 
 // AJAX http request for recipe search
 function search(searchParam) {

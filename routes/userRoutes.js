@@ -8,6 +8,7 @@ const router = express.Router();
 const db = require("../models");
 const Op = db.Sequelize.Op
 const ensureAuthenticated = require("./usersAuthHelper");
+const fixRecipeImage = require("./recipeImage");
 
 
 // Gateway route for a user's page area
@@ -311,14 +312,6 @@ function getRecommendedRecipes(num = 5) {
 			})
 			.catch(err => reject(err));
 	});
-}
-
-function fixRecipeImage(recipe) {
-	recipe.imageSrc = (recipe.image) ?
-		`data:image/jpeg;base64, ${recipe.image.toString("base64")}` :
-		recipe.imageURL;
-	recipe.image = null;
-	recipe.imageURL = null;
 }
 
 // Export the router

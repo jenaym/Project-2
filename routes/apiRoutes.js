@@ -3,6 +3,7 @@ var multiparty = require("multiparty");
 var fs = require("fs");
 const Op = db.Sequelize.Op
 const ensureAuthenticated = require("./usersAuthHelper");
+const fixRecipeImage = require("./recipeImage");
 
 module.exports = function (app) {
 	// Get all Recipes
@@ -194,11 +195,11 @@ module.exports = function (app) {
 			where: searchCondition
 		})
 		.then(result => {
-			console.log(`Found ${result.count} recipe(s)`);
-			// res.render("searchResults", {
-			// 	recipes: result
-			// });
-			res.json(result);
-		});
+			// console.log(`Found ${result.count} recipe(s)`);
+			// res.json(result);
+			res.render("searchResults", {
+				recipes: result.map(recipe => fixRecipeImage(recipe))
+			});
+		}).catch(err => console.log("Recipe search error", err));
 	})
 };
