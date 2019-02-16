@@ -12,14 +12,14 @@ require("dotenv").config();
 
 // * * * * * * * * *
 // CREATE "recipes_db" IF NOT EXISTS
-const mysql = require("mysql2");
-const connection = mysql.createConnection({
-	host: config.host,
-	// port: 3306,
-	user: config.username,
-	password: process.env.PASSWORD,
-});
-connection.execute(`CREATE DATABASE IF NOT EXISTS ${config.database}`);
+// const mysql = require("mysql2");
+// const connection = mysql.createConnection({
+// 	host: config.host,
+// 	// port: 3306,
+// 	user: config.username,
+// 	password: process.env.PASSWORD,
+// });
+// connection.execute(`CREATE DATABASE IF NOT EXISTS ${config.database}`);
 // * * * * * * * * *
 
 if (config.use_env_variable) {
