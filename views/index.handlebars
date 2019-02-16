@@ -6,15 +6,23 @@
 <div id="favoriteRecipes">
   {{!-- insert handlebars for each loop here --}}
   {{!-- instead of favRecipes.js --}}
-  {{#each recipes}}
-
-  <div class="favs" id={{this.id}}>
-
-    {{this.name}}
+  <div class="card-columns">
+   {{#each recipes}}
+      <div class="favs" id={{this.id}}>
+        <div class="card mt-2">
+          {{#if this.imageSrc}}
+          <img src="{{this.imageSrc}}" alt="" class="card-img-top img-thumbnail rounded">
+          {{/if}}
+          <div class="card-body">
+            <h5 class="card-title">{{this.name}}</h5>
+            <p class="card-text">
+              <a href="{{this.description}}" target="_blank">{{this.description}}</a>
+            </p>
+          </div>
+        </div>
+      </div>
+   {{/each}}
   </div>
-
-
-  {{/each}}
 </div>
 {{!-- </div> --}}
 
