@@ -33,7 +33,7 @@ function makeNewIngredient(counter) {
     newQty.append("<label>Quantity</label>");
 
     let newQtyInput = $("<input>");
-    newQtyInput.attr("type", "text").attr("placeholder", "Whole #");
+    newQtyInput.attr("type", "text").attr("placeholder", "");
     newQtyInput.addClass("form-control");
 
     let newUnit = $("<div>");

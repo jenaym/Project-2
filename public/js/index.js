@@ -212,10 +212,11 @@ var handleFormSubmit = function (event) {
 				// console.log(`Recipe ${resp} saved in the user profile.`)
 			})
 			.catch(err => console.log(err));
-	}).catch(error => { console.log("ERROR: Recipe insertion", error); });
 
-	recipeName.val("");
-	recipeDescription.val("");
+		// Naigate to the newly created recipe
+		window.setTimeout(function(){ window.location.href = "/recipes/" + resp }, 3000);
+
+	}).catch(error => { console.log("ERROR: Recipe insertion", error); });
 };
 
 // handleDeleteBtnClick is called when an recipe's delete button is clicked
