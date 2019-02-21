@@ -28,8 +28,12 @@ Cooking Recipe Web Site
 ## Deployment
 * Heroku
    * https://peaceful-eyrie-53353.herokuapp.com/
+     [![Home Page](assets/image/demo_home.png)](https://peaceful-eyrie-53353.herokuapp.com)
    * In addition to manually inserted (test/demo) recipes, the web site is loaded with sample recipe data of 15 recipes, approx. 100 ingredients.
    * special thanks to EDAMAN API: https://developer.edamam.com/edamam-docs-recipe-api
+
+## Repository
+* This repository has been forked from where we originally developed this app together in Janay's account [Jenay's GitHub](https://github.com/jenaym/Project-2) [2/21/2019]
 
 ## Technology / NPM Packages Used
 ```
@@ -51,4 +55,4 @@ Cooking Recipe Web Site
 ![Database Schema](public/images/models.png)
 
 ## Project Wiki Page
-* wiki: https://github.com/jenaym/Project-2/wiki
+* wiki: https://github.com/mmakino/Project-2/wiki
