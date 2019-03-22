@@ -33,7 +33,7 @@ Cooking Recipe Web Site
    * special thanks to EDAMAN API: https://developer.edamam.com/edamam-docs-recipe-api
 
 ## Repository
-* This repository has been forked from where we originally developed this app together in Janay's account [Jenay's GitHub](https://github.com/jenaym/Project-2) [2/21/2019]
+* This repository has been forked from where we originally developed this app together in Jenay's account [Jenay's GitHub](https://github.com/jenaym/Project-2) [2/21/2019]
 
 ## Technology / NPM Packages Used
 ```
